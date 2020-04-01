@@ -14,6 +14,8 @@ public class Employee {
     @Column(nullable = false)
     private String eOIC; //Osobisty Identyfikator Cyfrowy - do logowania (nick)
     @Column(nullable = false)
+    private String ePass;
+    @Column(nullable = false)
     private String eFName;
     @Column(nullable = false)
     private String eLName;
@@ -26,9 +28,10 @@ public class Employee {
 
     public Employee() {
     }
-    public Employee(String eOIC, String eFName, String eLName,
+    public Employee(String eOIC, String ePass, String eFName, String eLName,
                     String eEmail, String ePhone, boolean eActive) {
         this.eOIC = eOIC;
+        this.ePass = ePass;
         this.eFName = eFName;
         this.eLName = eLName;
         this.eEmail = eEmail;
@@ -42,6 +45,14 @@ public class Employee {
 
     public void seteOIC(String eOIC) {
         this.eOIC = eOIC;
+    }
+
+    public String getePass() {
+        return ePass;
+    }
+
+    public void setePass(String ePass) {
+        this.ePass = ePass;
     }
 
     public String geteFName() {
@@ -88,6 +99,7 @@ public class Employee {
     public String toString() {
         return "Employee{" +
                 "eOIC='" + eOIC + '\'' +
+                ", ePass='" + ePass + '\'' +
                 ", eFName='" + eFName + '\'' +
                 ", eLName='" + eLName + '\'' +
                 ", eEmail='" + eEmail + '\'' +
