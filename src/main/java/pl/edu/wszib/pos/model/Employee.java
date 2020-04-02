@@ -3,6 +3,7 @@ package pl.edu.wszib.pos.model;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "employee")
