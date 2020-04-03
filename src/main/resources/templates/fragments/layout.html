@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" th:fragment="layout(content)">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../static/css/uikit-min.css" th:href="@{/css/uikit.min.css}">
+    <script th:src="@{js/uikit.js}"></script>
+    <script th:src="@{js/uikit-icons.js}"></script>
+</head>
+<div>
+    <div th:replace="~{fragments/navbar::navbar}"></div></div>
+<div th:insert="${content}" class="uk-container uk-margin-large-top">
+
+
+</div>
+</html>
