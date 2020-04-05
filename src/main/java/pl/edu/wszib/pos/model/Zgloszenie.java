@@ -30,6 +30,8 @@ public class Zgloszenie {
     private String description;
     //status zgłoszenia
     private String status;
+    //komu przydzielono
+    private Long allocation;
 
     public Long getId() {
         return id;
@@ -111,5 +113,11 @@ public class Zgloszenie {
         this.status = status;
     }
 
+    public Long getAllocation() {
+        return allocation;
+    }
 
+    public void setAllocation(Long allocation) {
+        this.allocation = allocation;
+    }
 }

@@ -4,7 +4,9 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class ZgloszenieServiceTest {
+import static org.junit.jupiter.api.Assertions.*;
+
+class UserServiceTest {
 
     @BeforeEach
     void setUp() {
@@ -16,23 +18,6 @@ class ZgloszenieServiceTest {
 
     @Test
     void listAll() {
-
-    }
-
-    @Test
-    void save() {
-    }
-
-    @Test
-    void getId() {
-    }
-
-    @Test
-    void delete() {
-    }
-
-    @Test
-    void testListAll() {
     }
 
     @Test
@@ -40,10 +25,10 @@ class ZgloszenieServiceTest {
     }
 
     @Test
-    void testSave() {
+    void save() {
     }
 
     @Test
-    void testDelete() {
+    void delete() {
     }
 }

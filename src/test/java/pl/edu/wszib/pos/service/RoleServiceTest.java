@@ -3,11 +3,18 @@ package pl.edu.wszib.pos.service;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import pl.edu.wszib.pos.model.Role;
+import pl.edu.wszib.pos.repository.RoleRepository;
 
-class ZgloszenieServiceTest {
+import static org.junit.jupiter.api.Assertions.*;
 
+class RoleServiceTest {
+    public static final String ROLE1 = "Admin";
+    public static final String ROLE2 = "User";
+    public static final String ROLE3 = "Manager";
     @BeforeEach
     void setUp() {
+
     }
 
     @AfterEach
@@ -15,35 +22,10 @@ class ZgloszenieServiceTest {
     }
 
     @Test
-    void listAll() {
-
-    }
-
-    @Test
     void save() {
     }
 
     @Test
-    void getId() {
-    }
-
-    @Test
     void delete() {
-    }
-
-    @Test
-    void testListAll() {
-    }
-
-    @Test
-    void get() {
-    }
-
-    @Test
-    void testSave() {
-    }
-
-    @Test
-    void testDelete() {
     }
 }
