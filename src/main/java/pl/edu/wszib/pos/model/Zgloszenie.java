@@ -32,6 +32,9 @@ public class Zgloszenie {
     private String status;
     //komu przydzielono
     private Long allocation;
+    // opis naprawy
+    private String endDescription;
+
 
     public Long getId() {
         return id;
@@ -119,5 +122,13 @@ public class Zgloszenie {
 
     public void setAllocation(Long allocation) {
         this.allocation = allocation;
+    }
+
+    public String getEndDescription() {
+        return endDescription;
+    }
+
+    public void setEndDescription(String endDescription) {
+        this.endDescription = endDescription;
     }
 }

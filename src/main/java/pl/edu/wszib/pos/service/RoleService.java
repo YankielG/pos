@@ -18,4 +18,8 @@ public class RoleService {
     public void delete(Long id) {
         roleRepository.deleteById(id);
     }
+
+    public Iterable<Role> ListAll() {
+        return roleRepository.findAll();
+    }
 }
