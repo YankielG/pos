@@ -14,12 +14,12 @@ public class ZgloszenieService {
     @Autowired
     private ZgloszenieRepository repo;
 
-    public List<Zgloszenie> listAll() {
-        return (List<Zgloszenie>) repo.findAll();
+    public Iterable<Zgloszenie> listAll() {
+        return repo.findAll();
     }
 
     public Zgloszenie get(Long id) {
-        Zgloszenie zgloszenie = repo.findById(id).get(id);
+        Zgloszenie zgloszenie = repo.findById(id).get();
         return zgloszenie;
     }
 

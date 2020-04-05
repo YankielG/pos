@@ -1,9 +1,8 @@
 package pl.edu.wszib.pos.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -24,9 +23,13 @@ public class Zgloszenie {
     //numer seryjny
     private String serialNumber;
     // data zgłoszenia
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date cData;
-    //opie zgłoszenia
+    //opis zgłoszenia
     private String description;
+    //status zgłoszenia
+    private String status;
 
     public Long getId() {
         return id;
@@ -99,4 +102,14 @@ public class Zgloszenie {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+
 }
