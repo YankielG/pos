@@ -4,19 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 import pl.edu.wszib.pos.model.History;
-import pl.edu.wszib.pos.model.User;
 import pl.edu.wszib.pos.model.Zgloszenie;
-import pl.edu.wszib.pos.repository.HistoryRepository;
 import pl.edu.wszib.pos.service.HistoryService;
 import pl.edu.wszib.pos.service.RoleService;
 import pl.edu.wszib.pos.service.UserService;
 import pl.edu.wszib.pos.service.ZgloszenieService;
 
+import java.sql.Time;
 import java.util.Date;
-import java.util.List;
-import java.util.Map;
 
 @Controller
 public class AppController {
@@ -41,10 +37,13 @@ public class AppController {
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String saveZgloszenie(@ModelAttribute("zgloszenie") Zgloszenie zgloszenie) {
+    public String saveZgloszenie(@ModelAttribute("zgloszenie") Zgloszenie zgloszenie, History history) {
         zgloszenie.setcData(new Date());
         zgloszenie.setStatus("1");
         zgloszenieService.save(zgloszenie);
+//        history.sethData(new Date());
+//        history.sethDescription("Przyjęcie do serwisu");
+//       historyService.save(history);
         return "redirect:/";
     }
 

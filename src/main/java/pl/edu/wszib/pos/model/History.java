@@ -1,5 +1,8 @@
 package pl.edu.wszib.pos.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -9,7 +12,7 @@ public class History {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    //id zgłoszenia
+    // id zgłoszenia
     private Long zId;
     //data zapisu historii
     private Date hData;

@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@Table(name = "zgloszenie")
 public class Zgloszenie {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -131,4 +132,5 @@ public class Zgloszenie {
     public void setEndDescription(String endDescription) {
         this.endDescription = endDescription;
     }
+
 }
