@@ -5,8 +5,7 @@
 
 <body>
 <div class="container">
-    <form style="width: 400px;margin: auto" th:object="${zgloszenie}" th:action="@{/save
-    }" method="post">
+    <form style="width: 400px;margin: auto" th:object="${zgloszenie}" th:action="@{/save}" method="post">
         <div class="uk-margin">
             <label>Imię zgłaszającego</label>
             <input th:field="*{fName}" type="text" class="uk-input">

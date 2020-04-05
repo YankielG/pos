@@ -2,10 +2,10 @@
 <html xmlns:th="https://www.thymeleaf.org" th:replace="~{fragments/layout::layout(~{::.container})}">
 <head>
     <meta charset="UTF-8">
+
 <body>
 <div class="container">
-    <form style="width: 400px;margin: auto" th:object="${zgloszenie}" th:action="@{/save
-    }" method="post">
+    <form style="width: 400px;margin: auto" th:object="${zgloszenie}" th:action="@{/save}" method="post">
         <div class="uk-margin">
             <label>Typ zgłoszenia</label>
             <input th:field="*{type}" type="text" class="uk-input">
@@ -18,12 +18,12 @@
             <label>Opis usterki/zgłoszenia</label>
             <textarea th:field="*{description}" class="uk-textarea" rows="5"></textarea>
         </div>
-        <div class="uk-margin">
-            <select th:field="*{allocation}">
-                <option th:value="-----"></option>
-                <option th:each="user: $users" th:value="${user.id}" th:text="${user.ufname} + ${user.ulname}"/>
-            </select>
-        </div>
+<!--                <div class="uk-margin">-->
+<!--                    <select th:field="*{allocation}">-->
+<!--                        <option th:value="-&#45;&#45;&#45;&#45;"></option>-->
+<!--                        <option th:each="user: $users" th:value="${user.id}" th:text="${user.ufname} + ${user.ulname}"/>-->
+<!--                    </select>-->
+<!--                </div>-->
         <input th:field="*{id}" type="number" hidden>
         <a th:href="@{/}"><input  class="uk-button uk-button-danger" type="button" value="Anuluj"></a>
         <input type="submit" class="uk-button uk-button-primary" value="Zapisz">

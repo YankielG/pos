@@ -16,6 +16,7 @@ import pl.edu.wszib.pos.service.ZgloszenieService;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class AppController {
@@ -58,8 +59,8 @@ public class AppController {
     public String przydzielZgloszenia(@PathVariable Long id, Model model) {
         Zgloszenie zgloszenie = zgloszenieService.get(id);
         model.addAttribute("zgloszenie", zgloszenie);
-        Iterable<User> list = userService.listAll();
-        model.addAttribute("users", list);
+//        List<User> list = userService.getUsers();
+//        model.addAttribute("users", list);
         return "przydziel";
     }
 
