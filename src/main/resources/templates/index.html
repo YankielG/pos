@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" th:replace="~{fragments/layout::layout(~{::.container})}">
+
+<body>
+<div class="container">
+    <h2>Zgłoszenia</h2>
+    <table class="uk-table uk-table-striped uk-table-hover">
+        <thead>
+        <tr>
+            <th>Zgłoszenie ID</th>
+            <th>Imię zgłaszającego</th>
+            <th>Nazwisko zgłaszającego</th>
+            <th>Rodzaj zgłoszenia</th>
+            <th>Opis zgłoszenia</th>
+            <th>Akcje</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="zgloszenie : ${zgloszenielist}">
+            <td th:text="${zgloszenie.id}">Zgloszenie ID</td>
+            <td th:text="${zgloszenie.fName}">Imię zgłaszającego</td>
+            <td th:text="${zgloszenie.lName}">Nazwisko zgłaszającego</td>
+            <td th:text="${zgloszenie.type}">Rodzaj zgłoszenia</td>
+            <td th:text="${zgloszenie.description}">Opis zgłoszenia</td>
+<!--            <td>-->
+<!--                <span th:uk-icon="${product.available}? 'check':'close' "></span>-->
+<!--            </td>-->
+<!--            <td style="width:250px">-->
+<!--                <a th:href="@{/products/edit/{id}(id=${product.id})}"><input class="uk-button uk-button-primary" value="Edytuj" type="button"> </a>-->
+<!--                <a th:href="@{/products/remove/{id}(id=${product.id})}"><input class="uk-button uk-button-danger" value="Usuń" type="button"> </a>-->
+<!--            </td>-->
+<!--        </tr>-->
+        </tbody>
+    </table>
+    <div>
+        <a th:href="@{/nowe}"><input class="uk-button" type="button" value="Nowe zgłoszenie" style="background-color: #32d296;color: white" > </a>
+    </div>
+
+
+</div>
+</body>
+</html>

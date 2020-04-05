@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" th:replace="~{fragments/layout::layout(~{::.container})}">
+<head>
+    <meta charset="UTF-8">
+
+<body>
+<div class="container">
+    <form style="width: 400px;margin: auto" th:object="${zgloszenie}" th:action="@{/save}" method="post">
+        <div class="uk-margin">
+            <label>Imię zgłaszającego</label>
+            <input th:field="*{fName}" type="text" class="uk-input">
+        </div>
+        <div class="uk-margin">
+            <label>Nazwisko zgłaszającego</label>
+            <input th:field="*{lName}" type="text" class="uk-input">
+        </div>
+        <div class="uk-margin">
+            <label>Adres e-mail zgłaszającego</label>
+            <input th:field="*{email}" type="text" class="uk-input">
+        </div>
+        <div class="uk-margin">
+            <label>Telefon zgłaszającego</label>
+            <input th:field="*{phone}" type="text" class="uk-input">
+        </div>
+        <div class="uk-margin">
+            <label>Typ zgłoszenia</label>
+            <input th:field="*{type}" type="text" class="uk-input">
+        </div>
+        <div class="uk-margin">
+            <label>Numer seryjny urządzenia</label>
+            <input th:field="*{serialNumber}" type="text" class="uk-input">
+        </div>
+        <div class="uk-margin">
+            <label>Opis usterki/zgłoszenia</label>
+            <textarea th:field="*{description}" class="uk-textarea" rows="5"></textarea>
+        </div>
+        <input th:field="*{id}" type="number" hidden>
+        <a th:href="@{/}"><input  class="uk-button uk-button-danger" type="button" value="Anuluj"></a>
+        <input type="submit" class="uk-button uk-button-primary" value="Zapisz">
+    </form>
+
+</div>
+</body>
+</html>

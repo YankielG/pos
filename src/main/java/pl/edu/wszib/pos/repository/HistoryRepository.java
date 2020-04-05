@@ -2,10 +2,8 @@ package pl.edu.wszib.pos.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import pl.edu.wszib.pos.model.Role;
+import pl.edu.wszib.pos.model.History;
 
 @Repository
-public interface RoleRepository extends CrudRepository<Role, Long> {
-
-
+public interface HistoryRepository extends CrudRepository<History, Long> {
 }
