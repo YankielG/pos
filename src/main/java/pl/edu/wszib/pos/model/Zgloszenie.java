@@ -3,6 +3,10 @@ package pl.edu.wszib.pos.model;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
@@ -11,10 +15,8 @@ public class Zgloszenie {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    //imie zgłaszającego
-    private String fName;
-    //nazwisko zgłaszającego
-    private String lName;
+    //dane zgłaszającego
+    private String name;
     //email zgłaszającego
     private String email;
     //telefon zgłaszającego
@@ -35,6 +37,9 @@ public class Zgloszenie {
     private Long allocation;
     // opis naprawy
     private String endDescription;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_uLogin")
+    private User user;
 
 
     public Long getId() {
@@ -45,20 +50,12 @@ public class Zgloszenie {
         this.id = id;
     }
 
-    public String getfName() {
-        return fName;
+    public String getName() {
+        return name;
     }
 
-    public void setfName(String fName) {
-        this.fName = fName;
-    }
-
-    public String getlName() {
-        return lName;
-    }
-
-    public void setlName(String lName) {
-        this.lName = lName;
+    public void setName(String name) {
+        name = name;
     }
 
     public String getEmail() {
@@ -133,4 +130,11 @@ public class Zgloszenie {
         this.endDescription = endDescription;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

@@ -5,15 +5,10 @@
 
 <body>
 <div class="container">
-    <form style="width: 400px;margin: auto" th:object="${zgloszenie}" th:action="@{/save
-    }" method="post">
+    <form style="width: 400px;margin: auto" th:object="${zgloszenie}" th:action="@{/save}" method="post">
         <div class="uk-margin">
-            <label>Imię zgłaszającego</label>
-            <input th:field="*{fName}" type="text" class="uk-input">
-        </div>
-        <div class="uk-margin">
-            <label>Nazwisko zgłaszającego</label>
-            <input th:field="*{lName}" type="text" class="uk-input">
+            <label>Dane zgłaszającego</label>
+            <input th:field="*{name}" type="text" class="uk-input">
         </div>
         <div class="uk-margin">
             <label>Adres e-mail zgłaszającego</label>

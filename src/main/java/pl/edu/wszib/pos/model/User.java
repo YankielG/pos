@@ -1,6 +1,7 @@
 package pl.edu.wszib.pos.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "user")
@@ -24,6 +25,16 @@ public class User {
     private String uActive;
     //rola użytkownika w aplikacji
     private String uRole;
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.ALL})
+    private List<Zgloszenie> zgloszenieList;
+
+    public User(long id, String uLogin, String uFName, String uLName) {
+        this.id = id;
+        this.uLogin = uLogin;
+        this.uFName = uFName;
+        this.uLName = uLName;
+    }
+
 
     public Long getId() {
         return id;
@@ -95,5 +106,16 @@ public class User {
 
     public void setuRole(String uRole) {
         this.uRole = uRole;
+    }
+
+    public User() {
+    }
+
+    public List<Zgloszenie> getZgloszenieList() {
+        return zgloszenieList;
+    }
+
+    public void setZgloszenieList(List<Zgloszenie> zgloszenieList) {
+        this.zgloszenieList = zgloszenieList;
     }
 }

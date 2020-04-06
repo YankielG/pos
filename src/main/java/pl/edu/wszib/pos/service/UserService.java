@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.edu.wszib.pos.model.User;
 import pl.edu.wszib.pos.repository.UserRepository;
 
+import javax.persistence.Id;
 import java.util.List;
 
 
@@ -34,4 +35,5 @@ public class UserService {
     public void delete(Long id) {
         userRepository.deleteById(id);
     }
+
 }

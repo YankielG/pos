@@ -5,14 +5,22 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.wszib.pos.model.History;
+import pl.edu.wszib.pos.model.User;
 import pl.edu.wszib.pos.model.Zgloszenie;
+import pl.edu.wszib.pos.repository.UserRepository;
+import pl.edu.wszib.pos.repository.ZgloszenieRepository;
 import pl.edu.wszib.pos.service.HistoryService;
 import pl.edu.wszib.pos.service.RoleService;
 import pl.edu.wszib.pos.service.UserService;
 import pl.edu.wszib.pos.service.ZgloszenieService;
 
+import javax.servlet.http.HttpServletRequest;
+import java.sql.SQLException;
 import java.sql.Time;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 public class AppController {
@@ -41,10 +49,7 @@ public class AppController {
         zgloszenie.setcData(new Date());
         zgloszenie.setStatus("1");
         zgloszenieService.save(zgloszenie);
-//        history.sethData(new Date());
-//        history.sethDescription("Przyjęcie do serwisu");
-//       historyService.save(history);
-        return "redirect:/";
+        return "podsumowanie";
     }
 
     @GetMapping("/edycja/{id}")
@@ -54,24 +59,13 @@ public class AppController {
         return "edycja-zgloszenia";
     }
 
-    @GetMapping("/przydziel/{id}")
-    public String przydzielZgloszenia(@PathVariable Long id, Model model) {
-        Zgloszenie zgloszenie = zgloszenieService.get(id);
-        model.addAttribute("zgloszenie", zgloszenie);
-//        List<User> list = userService.getUsers();
-//        model.addAttribute("users", list);
-        return "przydziel";
+    @RequestMapping("/del/{id}")
+    public String deleteZgloszenie(@PathVariable(name = "id") long id) {
+        zgloszenieService.delete(id);
+        return "redirect:/";
     }
 
 
-//    @RequestMapping("/edit/{id}")
-//    public ModelAndView showEditProductPage(@PathVariable(name = "id") int id) {
-//        ModelAndView mav = new ModelAndView("edycja_zgloszenia");
-//        Zgloszenie zgloszenie = ZgloszenieService.get(id);
-//        mav.addObject("zgloszenie", zgloszenie);
-//
-//        return mav;
-//    }
 
 
 }

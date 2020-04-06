@@ -1,16 +1,27 @@
 
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org" th:replace="~{fragments/layout::layout(~{::.container})}">
-
+<html xmlns:th="https://www.thymeleaf.org" xmlns:uk-icon="http://www.w3.org/1999/xhtml"
+      th:replace="~{fragments/layout::layout(~{::.container})}">
+<head>
+    <link rel="stylesheet" href="/css/uikit-min.css" th:href="@{/css/uikit.min.css}">
+    <link rel="stylesheet" href="css/uikit.css" th:href="@{/css/uikit.css}">
+    <script th:src="@{js/uikit.js}"></script>
+    <script th:src="@{js/uikit-icons.js}"></script>
+</head>
 <body>
 <div class="container">
-    <h2>Zgłoszenia</h2>
+        <h2>Zgłoszenia</h2>
+    <div class="uk-margin">
+        <form class="uk-search uk-search-default" th:object="${zgloszenielist}">
+            <a href="" uk-search-icon></a>
+            <input class="uk-search-input" type="search" placeholder="Szukaj...">
+        </form>
+    </div>
     <table class="uk-table uk-table-striped uk-table-hover">
         <thead>
         <tr>
             <th>Zgłoszenie ID</th>
-            <th>Imię zgłaszającego</th>
-            <th>Nazwisko zgłaszającego</th>
+            <th>Dane zgłaszającego</th>
             <th>Rodzaj zgłoszenia</th>
             <th>Opis zgłoszenia</th>
             <th>Akcje</th>
@@ -19,26 +30,22 @@
         <tbody>
         <tr th:each="zgloszenie : ${zgloszenielist}">
             <td th:text="${zgloszenie.id}">Zgloszenie ID</td>
-            <td th:text="${zgloszenie.fName}">Imię zgłaszającego</td>
-            <td th:text="${zgloszenie.lName}">Nazwisko zgłaszającego</td>
+            <td th:text="${zgloszenie.name}">Dane zgłaszającego</td>
             <td th:text="${zgloszenie.type}">Rodzaj zgłoszenia</td>
             <td th:text="${zgloszenie.description}">Opis zgłoszenia</td>
-<!--            <td>-->
-<!--                <span th:uk-icon="${product.available}? 'check':'close' "></span>-->
-<!--            </td>-->
-            <td style="width:250px">
-                <a th:href="@{/przydziel/{id}(id=${zgloszenie.id})}"><input class="uk-button uk-button-primary" value="Przydziel" type="button"> </a>
-                <a th:href="@{/edycja/{id}(id=${zgloszenie.id})}"><input class="uk-button uk-button-primary uk-icon" uk-icon="pencil" value="Edytuj" type="button" > </a>
-<!--                <a th:href="@{/products/remove/{id}(id=${product.id})}"><input class="uk-button uk-button-danger" value="Usuń" type="button"> </a>-->
+            <td style="width:450px">
+
+                <a th:href="@{/przydziel/{id}(id=${zgloszenie.id})}"><input class="uk-button uk-button-primary uk-button-small" value="Przydziel" type="button"> </a>
+                <a th:href="@{/edycja/{id}(id=${zgloszenie.id})}"><input class="uk-button uk-button-primary uk-button-small" value="Edytuj" type="button" ></a>
+                <a th:href="@{/zakoncz/{id}(id=${zgloszenie.id})}"><input class="uk-button uk-button-primary uk-button-small" value="Zamknij" type="button" ></a>
+                <a th:href="@{/del/{id}(id=${zgloszenie.id})}"><input class="uk-button uk-button-danger uk-button-small" value="Usuń" type="button"></a>
             </td>
 <!--        </tr>-->
         </tbody>
     </table>
-
     <div>
         <a th:href="@{/nowe}"><input class="uk-button" type="button" value="Nowe zgłoszenie" style="background-color: #32d296;color: white" > </a>
     </div>
-
 
 </div>
 </body>
