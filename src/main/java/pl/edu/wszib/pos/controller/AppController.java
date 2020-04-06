@@ -65,7 +65,10 @@ public class AppController {
         return "redirect:/";
     }
 
-
+    @RequestMapping("/test")
+    public String test() {
+        return "test_tabeli";
+    }
 
 
 }
