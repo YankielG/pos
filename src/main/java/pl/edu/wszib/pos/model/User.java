@@ -25,8 +25,8 @@ public class User {
     private String uActive;
     //rola użytkownika w aplikacji
     private String uRole;
-    @OneToMany(mappedBy = "user", cascade = {CascadeType.ALL})
-    private List<Zgloszenie> zgloszenieList;
+//    @OneToMany(mappedBy = "user", cascade = {CascadeType.ALL})
+//    private List<Zgloszenie> zgloszenieList;
 
     public User(long id, String uLogin, String uFName, String uLName) {
         this.id = id;
@@ -111,11 +111,11 @@ public class User {
     public User() {
     }
 
-    public List<Zgloszenie> getZgloszenieList() {
-        return zgloszenieList;
-    }
-
-    public void setZgloszenieList(List<Zgloszenie> zgloszenieList) {
-        this.zgloszenieList = zgloszenieList;
-    }
+//    public List<Zgloszenie> getZgloszenieList() {
+//        return zgloszenieList;
+//    }
+//
+//    public void setZgloszenieList(List<Zgloszenie> zgloszenieList) {
+//        this.zgloszenieList = zgloszenieList;
+//    }
 }

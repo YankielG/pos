@@ -16,12 +16,21 @@ public class History {
     private Long zId;
     //data zapisu historii
     private Date hData;
-    //czas zapisu historii
-    private Date hTime;
     //rodzaj operacji
     private String hDescription;
     //kto wykonał operację
     private String hUser;
+//    @ManyToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "zgloszenie_id")
+//    private Zgloszenie zgloszenie;
+
+
+    public History(Long zId, Date hData, String hDescription, String hUser) {
+        this.zId = zId;
+        this.hData = hData;
+        this.hDescription = hDescription;
+        this.hUser = hUser;
+    }
 
     public Long getId() {
         return id;
@@ -47,14 +56,6 @@ public class History {
         this.hData = hData;
     }
 
-    public Date gethTime() {
-        return hTime;
-    }
-
-    public void sethTime(Date hTime) {
-        this.hTime = hTime;
-    }
-
     public String gethDescription() {
         return hDescription;
     }
@@ -70,4 +71,12 @@ public class History {
     public void sethUser(String hUser) {
         this.hUser = hUser;
     }
+
+//    public Zgloszenie getZgloszenie() {
+//        return zgloszenie;
+//    }
+//
+//    public void setZgloszenie(Zgloszenie zgloszenie) {
+//        this.zgloszenie = zgloszenie;
+//    }
 }

@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "zgloszenie")
@@ -34,12 +35,17 @@ public class Zgloszenie {
     //status zgłoszenia
     private String status;
     //komu przydzielono
-    private Long allocation;
+    private String allocation;
     // opis naprawy
     private String endDescription;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_uLogin")
-    private User user;
+//    @ManyToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "user_uLogin")
+//    private User user;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "history",joinColumns = {@JoinColumn(name = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "zId")}
+    )
+    List<History> histories;
 
 
     public Long getId() {
@@ -55,7 +61,7 @@ public class Zgloszenie {
     }
 
     public void setName(String name) {
-        name = name;
+        this.name = name;
     }
 
     public String getEmail() {
@@ -114,11 +120,11 @@ public class Zgloszenie {
         this.status = status;
     }
 
-    public Long getAllocation() {
+    public String getAllocation() {
         return allocation;
     }
 
-    public void setAllocation(Long allocation) {
+    public void setAllocation(String allocation) {
         this.allocation = allocation;
     }
 
@@ -130,11 +136,21 @@ public class Zgloszenie {
         this.endDescription = endDescription;
     }
 
-    public User getUser() {
-        return user;
+//    public User getUser() {
+//        return user;
+//    }
+//
+//    public void setUser(User user) {
+//        this.user = user;
+//    }
+
+    public List<History> getHistories() {
+        return histories;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setHistories(List<History> histories) {
+        this.histories = histories;
     }
+
+
 }

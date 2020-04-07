@@ -29,6 +29,8 @@ public class AppController {
     private RoleService roleService;
     private UserService userService;
     private HistoryService historyService;
+    private Long zgloszenieId;
+    private Zgloszenie zgloszenie;
 
     @RequestMapping("/")
     public String viewHomePage(Model model) {
@@ -45,12 +47,15 @@ public class AppController {
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String saveZgloszenie(@ModelAttribute("zgloszenie") Zgloszenie zgloszenie, History history) {
+    public String saveZgloszenie(@ModelAttribute("zgloszenie") Zgloszenie zgloszenie) {
         zgloszenie.setcData(new Date());
         zgloszenie.setStatus("1");
+        zgloszenie.setAllocation("brak");
+        zgloszenie.setEndDescription("brak");
         zgloszenieService.save(zgloszenie);
         return "podsumowanie";
     }
+
 
     @GetMapping("/edycja/{id}")
     public String edycjaZgloszenia(@PathVariable Long id, Model model) {
