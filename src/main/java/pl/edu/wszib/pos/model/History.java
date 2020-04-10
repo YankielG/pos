@@ -5,13 +5,15 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
 @Entity
 @Table(name = "history")
 public class History {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue
+    private Long hId;
     // id zgłoszenia
     private Long zId;
     //data zapisu historii
@@ -22,8 +24,7 @@ public class History {
     private String hUser;
 //    @ManyToOne(cascade = CascadeType.ALL)
 //    @JoinColumn(name = "zgloszenie_id")
-//    private Zgloszenie zgloszenie;
-
+//    private Long zId;
 
     public History(Long zId, Date hData, String hDescription, String hUser) {
         this.zId = zId;
@@ -33,11 +34,11 @@ public class History {
     }
 
     public Long getId() {
-        return id;
+        return hId;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.hId = hId;
     }
 
     public Long getzId() {
@@ -79,4 +80,15 @@ public class History {
 //    public void setZgloszenie(Zgloszenie zgloszenie) {
 //        this.zgloszenie = zgloszenie;
 //    }
+
+    @Override
+    public String toString() {
+        return "History{" +
+                "id=" + hId +
+                ", zId=" + zId +
+                ", hData=" + hData +
+                ", hDescription='" + hDescription + '\'' +
+                ", hUser='" + hUser + '\'' +
+                '}';
+    }
 }

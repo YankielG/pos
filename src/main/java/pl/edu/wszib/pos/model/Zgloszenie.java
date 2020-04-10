@@ -3,18 +3,15 @@ package pl.edu.wszib.pos.model;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+
 import java.util.Date;
-import java.util.List;
+
 
 @Entity
 @Table(name = "zgloszenie")
 public class Zgloszenie {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private Long id;
     //dane zgłaszającego
     private String name;
@@ -41,11 +38,11 @@ public class Zgloszenie {
 //    @ManyToOne(cascade = CascadeType.ALL)
 //    @JoinColumn(name = "user_uLogin")
 //    private User user;
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "history",joinColumns = {@JoinColumn(name = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "zId")}
-    )
-    List<History> histories;
+//    @OneToMany(cascade = CascadeType.ALL)
+//    @JoinTable(name = "history",joinColumns = {@JoinColumn(name = "id")},
+//            inverseJoinColumns = {@JoinColumn(name = "zId")}
+//    )
+//    List<History> histories;
 
 
     public Long getId() {
@@ -144,13 +141,13 @@ public class Zgloszenie {
 //        this.user = user;
 //    }
 
-    public List<History> getHistories() {
-        return histories;
-    }
-
-    public void setHistories(List<History> histories) {
-        this.histories = histories;
-    }
+//    public List<History> getHistories() {
+//        return histories;
+//    }
+//
+//    public void setHistories(History histories) {
+//        this.histories = (List<History>) histories;
+//    }
 
 
 }

@@ -1,6 +1,7 @@
 package pl.edu.wszib.pos.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.edu.wszib.pos.model.Zgloszenie;
@@ -11,6 +12,7 @@ import java.util.List;
 @Service
 @Transactional
 public class ZgloszenieService {
+
     @Autowired
     private ZgloszenieRepository repo;
 
@@ -30,5 +32,7 @@ public class ZgloszenieService {
     public void delete(Long id) {
         repo.deleteById(id);
     }
+
+
 
 }

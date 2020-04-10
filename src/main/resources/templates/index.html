@@ -1,48 +1,24 @@
 
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org" xmlns:uk-icon="http://www.w3.org/1999/xhtml"
+      xmlns:pages="http://www.w3.org/1999/xhtml" xmlns:sd="http://www.w3.org/1999/xhtml"
       th:replace="~{fragments/layout::layout(~{::.container})}">
 <head>
+
 </head>
 <body>
 <div class="container">
         <h2>Zgłoszenia</h2>
-<!--    <div class="uk-margin">-->
-<!--        <form class="uk-search uk-search-default" th:object="${zgloszenielist}">-->
-<!--            <a href="" uk-search-icon></a>-->
-<!--            <input class="uk-search-input" type="search" placeholder="Szukaj...">-->
-<!--        </form>-->
-<!--    </div>-->
-<!--    <table class="uk-table uk-table-striped uk-table-hover">-->
-<!--        <thead>-->
-<!--        <tr>-->
-<!--            <th>Zgłoszenie ID</th>-->
-<!--            <th>Dane zgłaszającego</th>-->
-<!--            <th>Rodzaj zgłoszenia</th>-->
-<!--            <th>Opis zgłoszenia</th>-->
-<!--            <th>Akcje</th>-->
-<!--        </tr>-->
-<!--        </thead>-->
-<!--        <tbody>-->
-<!--        <tr th:each="zgloszenie : ${zgloszenielist}">-->
-<!--            <td th:text="${zgloszenie.id}">Zgloszenie ID</td>-->
-<!--            <td th:text="${zgloszenie.name}">Dane zgłaszającego</td>-->
-<!--            <td th:text="${zgloszenie.type}">Rodzaj zgłoszenia</td>-->
-<!--            <td th:text="${zgloszenie.description}">Opis zgłoszenia</td>-->
-<!--            <td style="width:450px">-->
-
-<!--                <a th:href="@{/przydziel/{id}(id=${zgloszenie.id})}"><input class="uk-button uk-button-primary uk-button-small" value="Przydziel" type="button"> </a>-->
-<!--                <a th:href="@{/edycja/{id}(id=${zgloszenie.id})}"><input class="uk-button uk-button-primary uk-button-small" value="Edytuj" type="button" ></a>-->
-<!--                <a th:href="@{/zakoncz/{id}(id=${zgloszenie.id})}"><input class="uk-button uk-button-primary uk-button-small" value="Zamknij" type="button" ></a>-->
-<!--                <a th:href="@{/del/{id}(id=${zgloszenie.id})}"><input class="uk-button uk-button-danger uk-button-small" value="Usuń" type="button"></a>-->
-<!--            </td>-->
-<!--&lt;!&ndash;        </tr>&ndash;&gt;-->
-<!--        </tbody>-->
-<!--    </table>-->
-    <table id="zgloszenia" class="table table-striped table-bordered" style="width:100%">
+    <div class="uk-margin">
+        <form class="uk-search uk-search-default" th:object="${zgloszenielist}">
+            <a href="" uk-search-icon></a>
+            <input class="uk-search-input" type="search" placeholder="Szukaj...">
+        </form>
+    </div>
+    <table class="uk-table uk-table-striped uk-table-hover">
         <thead>
         <tr>
-            <th>Zgloszenie Id</th>
+            <th>Zgłoszenie ID</th>
             <th>Dane zgłaszającego</th>
             <th>Rodzaj zgłoszenia</th>
             <th>Opis zgłoszenia</th>
@@ -51,31 +27,26 @@
         </thead>
         <tbody>
         <tr th:each="zgloszenie : ${zgloszenielist}">
-            <td th:text="${zgloszenie.id}">Zgłoszenie ID</td>
+            <td th:text="${zgloszenie.id}">Zgloszenie ID</td>
             <td th:text="${zgloszenie.name}">Dane zgłaszającego</td>
             <td th:text="${zgloszenie.type}">Rodzaj zgłoszenia</td>
             <td th:text="${zgloszenie.description}">Opis zgłoszenia</td>
-                        <td style="width:450px">
+            <td style="width:450px">
 
-                            <a th:href="@{/przydziel/{id}(id=${zgloszenie.id})}"><input class="uk-button uk-button-primary uk-button-small" value="Przydziel" type="button"> </a>
-                            <a th:href="@{/edycja/{id}(id=${zgloszenie.id})}"><input class="uk-button uk-button-primary uk-button-small" value="Edytuj" type="button" ></a>
-                            <a th:href="@{/zakoncz/{id}(id=${zgloszenie.id})}"><input class="uk-button uk-button-primary uk-button-small" value="Zamknij" type="button" ></a>
-                            <a th:href="@{/del/{id}(id=${zgloszenie.id})}"><input class="uk-button uk-button-danger uk-button-small" value="Usuń" type="button"></a>
-                        </td>
-        </tr>
+                <a th:href="@{/przydziel/{id}(id=${zgloszenie.id})}"><input class="uk-button uk-button-primary uk-button-small" value="Przydziel" type="button"> </a>
+                <a th:href="@{/edycja/{id}(id=${zgloszenie.id})}"><input class="uk-button uk-button-primary uk-button-small" value="Edytuj" type="button" ></a>
+                <a th:href="@{/zakoncz/{id}(id=${zgloszenie.id})}"><input class="uk-button uk-button-primary uk-button-small" value="Zamknij" type="button" ></a>
+                <a th:href="@{/del/{id}(id=${zgloszenie.id})}"><input class="uk-button uk-button-danger uk-button-small" value="Usuń" type="button"></a>
+            </td>
+<!--        </tr>-->
         </tbody>
     </table>
-        <div>
+    <div>
         <a th:href="@{/nowe}"><input class="uk-button" type="button" value="Nowe zgłoszenie" style="background-color: #32d296;color: white" > </a>
        <a href="test_tabeli.html">Test</a>
     </div>
 
 </div>
 </body>
-<script>
-    $(document).ready(function() {
-        $('#zgloszenia').DataTable();
-    } );
 
-</script>
 </html>
