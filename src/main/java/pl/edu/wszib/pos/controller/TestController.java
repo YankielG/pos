@@ -1,34 +1,21 @@
 package pl.edu.wszib.pos.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.SortDefault;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-import org.thymeleaf.model.IModel;
 import pl.edu.wszib.pos.model.History;
 import pl.edu.wszib.pos.model.User;
 import pl.edu.wszib.pos.model.Zgloszenie;
-import pl.edu.wszib.pos.repository.ZgloszenieRepository;
 import pl.edu.wszib.pos.service.HistoryService;
 import pl.edu.wszib.pos.service.RoleService;
 import pl.edu.wszib.pos.service.UserService;
 import pl.edu.wszib.pos.service.ZgloszenieService;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+import java.util.Date;
+import java.util.List;
 
-
-
-@Controller
-public class AppController {
+public class TestController {
     @Autowired
     private ZgloszenieService zgloszenieService;
     @Autowired
@@ -44,26 +31,11 @@ public class AppController {
     private Zgloszenie zgloszenie;
 
 
-//    @RequestMapping("/")
-//    public String viewHomePage( Model model) {
-//        Iterable<Zgloszenie> zgloszenieList = zgloszenieService.findAll();
-//         model.addAttribute("zgloszenielist", zgloszenieList);
-//        return "index";
-//    }
-
-    @RequestMapping("/index/page/{page}")
-    public ModelAndView listaZgloszen(@PathVariable("page") int page ) {
-        ModelAndView modelAndView = new ModelAndView("zgloszenia-paginacja");
-        Pageable pageable = PageRequest.of(page - 1, 10);
-        Page<Zgloszenie> zgloszeniePage = zgloszenieService.getPaginated(pageable);
-        int totalPages = zgloszeniePage.getTotalPages();
-        if(totalPages > 0) {
-            List<Integer> pageNumbers = IntStream.rangeClosed(1,totalPages).boxed().collect(Collectors.toList());
-            modelAndView.addObject("pageNumbers", pageNumbers);
-        }
-        modelAndView.addObject("activeZgloszenieList", true);
-        modelAndView.addObject("zgloszenieList", zgloszeniePage.getContent());
-        return modelAndView;
+    @RequestMapping("/")
+    public String viewHomePage( Model model) {
+        //Iterable<Zgloszenie> zgloszenieList = zgloszenieService.findAll(PageRequest.of(page, size));
+       // model.addAttribute("zgloszenielist", zgloszenieList);
+        return "index";
     }
 
     @RequestMapping("/nowe")
@@ -130,3 +102,5 @@ public class AppController {
 
 
 }
+
+
