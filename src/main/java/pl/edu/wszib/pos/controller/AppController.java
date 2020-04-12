@@ -35,7 +35,7 @@ public class AppController {
 
    @RequestMapping("/")
     public String viewHomePage(Model model) {
-        Iterable<Zgloszenie> zgloszenieList = zgloszenieService.listAll();
+        Iterable<Zgloszenie> zgloszenieList = zgloszenieService.findAll();
         model.addAttribute("zgloszenielist", zgloszenieList);
         return "index";
     }

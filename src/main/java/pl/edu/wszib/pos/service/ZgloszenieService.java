@@ -1,6 +1,7 @@
 package pl.edu.wszib.pos.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +17,7 @@ public class ZgloszenieService {
     @Autowired
     private ZgloszenieRepository repo;
 
-    public Iterable<Zgloszenie> listAll() {
+    public Iterable<Zgloszenie> findAll() {
         return repo.findAll();
     }
 
