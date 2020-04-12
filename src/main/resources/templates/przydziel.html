@@ -4,8 +4,78 @@
     <meta charset="UTF-8">
 
 <body>
+<!--<h2>Select Option Example 1</h2>-->
+
+<!--<form name='f' method='POST'>-->
+<!--    <table>-->
+<!--        <tr>-->
+<!--            <td>Wybierz usera:</td>-->
+<!--            <td>-->
+<!--                <select th:field="*{users}">-->
+<!--                    <option value=""> &#45;&#45; </option>-->
+<!--                    <option th:each="user : ${userList}"-->
+<!--                            th:value="${users.uId}"-->
+<!--                            th:utext="${users.uName}"/>-->
+<!--                </select>-->
+
+<!--            </td>-->
+<!--        </tr>-->
+
+<!--        <tr>-->
+<!--            <td><input name="submit" type="submit" value="submit" /></td>-->
+<!--        </tr>-->
+<!--    </table>-->
+<!--</form>-->
 <div class="container">
-    <h4>testing</h4>
+<form style="width: 400px;margin: auto" th:object="${zgloszenie}" method="get">
+<div class="uk-margin">
+<label>Id zgłoszenia :</label>
+<td th:utext="${zgloszenie.id}">...</td>
+</div>
+<div class="uk-margin">
+<label>Dane zgłaszającego :</label>
+<td th:utext="${zgloszenie.name}">...</td>
+</div>
+    <div class="uk-margin">
+        <label>Wybierz pracownika</label>
+        <select>
+        <option th:each="user : ${users}">
+        th:value="${user.uId}" th:text="${user.uName}">
+        </option>
+        </select>
+        </div>
+ <div class="uk-margin">
+<!--            <label>Adres e-mail zgłaszającego</label>-->
+<!--            <td th:utext="${zgloszenie.email}">...</td>-->
+<!--        </div>-->
+<!--        <div class="uk-margin">-->
+<!--            <label>Telefon zgłaszającego</label>-->
+<!--            <td th:utext="${zgloszenie.phone}">...</td>-->
+<!--        </div>-->
+<!--        <div class="uk-margin">-->
+<!--            <label>Typ zgłoszenia : </label>-->
+<!--            <td th:utext="${zgloszenie.type}">...</td>-->
+<!--        </div>-->
+<!--        <div class="uk-margin">-->
+<!--            <label>Numer seryjny urządzenia</label>-->
+<!--            <td th:utext="${zgloszenie.serialNumber}">...</td>-->
+<!--        </div>-->
+<!--        <div class="uk-margin">-->
+<!--            <label>Opis usterki/zgłoszenia</label>-->
+<!--            <td th:utext="${zgloszenie.description}">...</td>-->
+<!--        </div>-->
+<!--        <div class="uk-margin">-->
+<!--&lt;!&ndash;            <label>Wybierz pracownika</label>&ndash;&gt;-->
+<!--&lt;!&ndash;            <select th:field="*{selectedUser}">&ndash;&gt;-->
+<!--&lt;!&ndash;                <option th:each="user : ${users}"&ndash;&gt;-->
+<!--&lt;!&ndash;                        th:value="${user}" th:text="${user.uLName}">&ndash;&gt;-->
+<!--&lt;!&ndash;                </option>&ndash;&gt;-->
+<!--&lt;!&ndash;            </select>&ndash;&gt;-->
+<!--        </div>-->
+        <input th:field="*{id}" type="number" hidden>
+<!--       <a th:href="@{/}"><input class="uk-button uk-button-danger" type="button" value="Zamknij"></a>-->
+        <!--        <input type="submit" class="uk-button uk-button-primary" value="Zapisz">-->
+    </form>
 
 </div>
 </body>

@@ -12,7 +12,8 @@ import java.util.List;
 @Table(name = "history")
 public class History {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "hId")
     private Long hId;
     // id zgłoszenia
     private Long zId;

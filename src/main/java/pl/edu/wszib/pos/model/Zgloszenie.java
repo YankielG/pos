@@ -11,7 +11,8 @@ import java.util.Date;
 @Table(name = "zgloszenie")
 public class Zgloszenie {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+  //  @Column(name = "id")
     private Long id;
     //dane zgłaszającego
     private String name;
@@ -32,18 +33,11 @@ public class Zgloszenie {
     //status zgłoszenia
     private String status;
     //komu przydzielono
-    private String allocation;
+    private Long uId;
     // opis naprawy
     private String endDescription;
-//    @ManyToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "user_uLogin")
-//    private User user;
-//    @OneToMany(cascade = CascadeType.ALL)
-//    @JoinTable(name = "history",joinColumns = {@JoinColumn(name = "id")},
-//            inverseJoinColumns = {@JoinColumn(name = "zId")}
-//    )
-//    List<History> histories;
-
+    //czy usunięto
+    private int del;
 
     public Long getId() {
         return id;
@@ -117,12 +111,12 @@ public class Zgloszenie {
         this.status = status;
     }
 
-    public String getAllocation() {
-        return allocation;
+    public Long getuId() {
+        return uId;
     }
 
-    public void setAllocation(String allocation) {
-        this.allocation = allocation;
+    public void setuId(Long uId) {
+        this.uId = uId;
     }
 
     public String getEndDescription() {
@@ -133,21 +127,11 @@ public class Zgloszenie {
         this.endDescription = endDescription;
     }
 
-//    public User getUser() {
-//        return user;
-//    }
-//
-//    public void setUser(User user) {
-//        this.user = user;
-//    }
+    public int isDel() {
+        return del;
+    }
 
-//    public List<History> getHistories() {
-//        return histories;
-//    }
-//
-//    public void setHistories(History histories) {
-//        this.histories = (List<History>) histories;
-//    }
-
-
+    public void setDel(int del) {
+        this.del = del;
+    }
 }

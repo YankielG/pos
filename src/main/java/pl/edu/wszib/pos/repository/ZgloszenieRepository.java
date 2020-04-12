@@ -13,5 +13,4 @@ import java.util.List;
 @Repository
 public interface ZgloszenieRepository extends CrudRepository<Zgloszenie, Long> {
 
-    //Page<Zgloszenie> findAllById(String Zgloszenie, Pageable pageable);
 }

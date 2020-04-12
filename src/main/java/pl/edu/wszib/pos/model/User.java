@@ -1,22 +1,19 @@
 package pl.edu.wszib.pos.model;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "user")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue
+    private Long uId;
     // login użytkownika
     private String uLogin;
     //hasło użytkownika
     private String uPassword;
-    //imię użytkownika
-    private String uFName;
-    //nazwisko użytkownika
-    private String uLName;
+    //imię i nazwisko użytkownika
+    private String uName;
     //e-mail użytkownika
     private String uEmail;
     //telefon użytkownika
@@ -25,23 +22,14 @@ public class User {
     private String uActive;
     //rola użytkownika w aplikacji
     private String uRole;
-//    @OneToMany(mappedBy = "user", cascade = {CascadeType.ALL})
-//    private List<Zgloszenie> zgloszenieList;
 
-    public User(long id, String uLogin, String uFName, String uLName) {
-        this.id = id;
-        this.uLogin = uLogin;
-        this.uFName = uFName;
-        this.uLName = uLName;
+
+    public Long getuId() {
+        return uId;
     }
 
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public void setuId(Long uId) {
+        this.uId = uId;
     }
 
     public String getuLogin() {
@@ -60,20 +48,12 @@ public class User {
         this.uPassword = uPassword;
     }
 
-    public String getuFName() {
-        return uFName;
+    public String getuName() {
+        return uName;
     }
 
-    public void setuFName(String uFName) {
-        this.uFName = uFName;
-    }
-
-    public String getuLName() {
-        return uLName;
-    }
-
-    public void setuLName(String uLName) {
-        this.uLName = uLName;
+    public void setuName(String uName) {
+        this.uName = uName;
     }
 
     public String getuEmail() {
@@ -111,11 +91,12 @@ public class User {
     public User() {
     }
 
-//    public List<Zgloszenie> getZgloszenieList() {
-//        return zgloszenieList;
-//    }
-//
-//    public void setZgloszenieList(List<Zgloszenie> zgloszenieList) {
-//        this.zgloszenieList = zgloszenieList;
-//    }
+    public User(long id, String uLogin, String uName) {
+        super();
+        this.uId = uId;
+        this.uLogin = uLogin;
+        this.uName = uName;
+    }
+
 }
+
