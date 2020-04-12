@@ -80,7 +80,7 @@ public class AppController {
     public String saveZgloszenie(@ModelAttribute("zgloszenie") Zgloszenie zgloszenie, @ModelAttribute("history") History history) {
         zgloszenie.setcData(new Date());
         zgloszenie.setStatus("1");
-        zgloszenie.setDel(0);
+        zgloszenie.setDel(true);
         zgloszenie.setuId((long) 1);
         zgloszenieService.save(zgloszenie);
         history.setzId(zgloszenie.getId());
@@ -108,7 +108,7 @@ public class AppController {
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public String delZgloszenie(@ModelAttribute("zgloszenie") Zgloszenie zgloszenie) {
-        zgloszenie.setDel(1);
+        zgloszenie.setDel(false);
         zgloszenieService.save(zgloszenie);
         History history = new History(zgloszenie.getId(), new Date(), "Usunięto z bazy", "test");
         historyService.save(history);
