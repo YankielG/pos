@@ -18,18 +18,13 @@
             <label>Telefon zgłaszającego</label>
             <input th:field="*{phone}" type="text" class="uk-input">
         </div>
-        <div class="uk-button uk-form-controls">
+        <div class="uk-button uk-form-controls uk-dropdown">
             <label>Typ zgłoszenia</label>
-<!--            <input th:field="*{type}" type="text" class="uk-input">-->
+            <!--            <input th:field="*{type}" type="text" class="uk-input">-->
             <select th:field="*{type}" class="uk-input">
+                <option th:value="'Serwis gwarancyjny'">Serwis gwarancyjny</option>
+                <option th:value="'Serwis pogwarancyjny'">Serwis pogwarancyny</option>
                 <option th:value="'Komputer stacjonarny'">Komputer stacjonarny</option>
-                <option th:value="'Komputer przenośny'">Komputer przenośny/laptop</option>
-                <option th:value="'Drukarka atramentowa'">Drukarka atramentowa</option>
-                <option th:value="'Drukarka laserowa'">Drukarka laserowa</option>
-                <option th:value="'Monitor'">Monitor</option>
-                <option th:value="'Oprogramowanie'">Oprogramowanie</option>
-                <option th:value="'Problemy sieciowe'">Problemy sieciowe</option>
-                <option th:value="'Inne'">Inne - niewymienione powyżej</option>
             </select>
         </div>
         <div class="uk-margin">

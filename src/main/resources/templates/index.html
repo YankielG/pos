@@ -35,6 +35,7 @@
 
                 <a th:href="@{/przydziel/{id}(id=${zgloszenie.id})}"><input class="uk-button uk-button-primary uk-button-small" value="Przydziel" type="button"> </a>
                 <a th:href="@{/edycja/{id}(id=${zgloszenie.id})}"><input class="uk-button uk-button-primary uk-button-small" value="Edytuj" type="button" ></a>
+                <a th:href="@{/details/{id}(id=${zgloszenie.id})}"><input class="uk-button uk-button-primary uk-button-small" value="Szczegóły" type="button" ></a>
                 <a th:href="@{/zakoncz/{id}(id=${zgloszenie.id})}"><input class="uk-button uk-button-primary uk-button-small" value="Zamknij" type="button" ></a>
                 <a th:href="@{/del/{id}(id=${zgloszenie.id})}"><input class="uk-button uk-button-danger uk-button-small" value="Usuń" type="button"></a>
             </td>

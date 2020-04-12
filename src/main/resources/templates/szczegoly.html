@@ -33,9 +33,17 @@
             <label>Opis usterki/zgłoszenia : </label>
             <td th:utext="${zgloszenie.description}">...</td>
         </div>
+        <div class="uk-margin">
+            <label>Komu przydzielono : </label>
+            <td th:utext="${zgloszenie.uId}">...</td>
+        </div>
+        <div class="uk-margin">
+            <label>Opis usunięcia usterki/naprawy : </label>
+            <td th:utext="${zgloszenie.endDescription}">...</td>
+        </div>
         <input th:field="*{id}" type="number" hidden>
         <a th:href="@{/}"><input class="uk-button uk-button-danger" type="button" value="Zamknij"></a>
-<!--        <input type="submit" class="uk-button uk-button-primary" value="Zapisz">-->
+        <!--        <input type="submit" class="uk-button uk-button-primary" value="Zapisz">-->
     </form>
 
 </div>

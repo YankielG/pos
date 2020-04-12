@@ -137,6 +137,27 @@ public class AppController {
 //        model.addAttribute("zgloszenie", zgloszenie);
 //        Iterable<History> histories = hi
 //    }
+@GetMapping("/details/{id}")
+public String detailsZgloszenia(@PathVariable Long id, Model model) {
+    Zgloszenie zgloszenie = zgloszenieService.get(id);
+    model.addAttribute("zgloszenie", zgloszenie);
+    return "szczegoly";
+}
 
+    @RequestMapping("/zakoncz/{id}")
+    public String zakonczZgloszenie(@PathVariable Long id, Model model) {
+        Zgloszenie zgloszenie = zgloszenieService.get(id);
+        model.addAttribute("zgloszenie", zgloszenie);
+        return "zakoncz";
+    }
+
+    @RequestMapping(value = "/end", method = RequestMethod.POST)
+    public String endZgloszenie(@ModelAttribute("zgloszenie") Zgloszenie zgloszenie) {
+        zgloszenie.setStatus("3");
+        zgloszenieService.save(zgloszenie);
+        History history = new History(zgloszenie.getId(), new Date(), "Zamknięto zgłoszenie", "test");
+        historyService.save(history);
+        return "redirect:/";
+    }
 
 }
