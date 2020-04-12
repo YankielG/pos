@@ -15,4 +15,6 @@ public class HistoryService {
     public void save(History history) {
         historyRepository.save(history);
     }
+
+
 }

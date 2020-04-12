@@ -37,7 +37,8 @@ public class Zgloszenie {
     // opis naprawy
     private String endDescription;
     //czy usunięto
-    private int del;
+    @Column(columnDefinition = "boolean default false")
+    private boolean del;
 
     public Long getId() {
         return id;
@@ -127,11 +128,11 @@ public class Zgloszenie {
         this.endDescription = endDescription;
     }
 
-    public int isDel() {
+    public boolean isDel() {
         return del;
     }
 
-    public void setDel(int del) {
+    public void setDel(boolean del) {
         this.del = del;
     }
 }

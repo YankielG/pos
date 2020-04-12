@@ -1,5 +1,6 @@
 package pl.edu.wszib.pos.controller;
 
+import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -44,27 +45,29 @@ public class AppController {
     private Zgloszenie zgloszenie;
 
 
-//    @RequestMapping("/")
-//    public String viewHomePage( Model model) {
-//        Iterable<Zgloszenie> zgloszenieList = zgloszenieService.findAll();
-//         model.addAttribute("zgloszenielist", zgloszenieList);
-//        return "index";
-//    }
-
-    @RequestMapping("/index/page/{page}")
-    public ModelAndView listaZgloszen(@PathVariable("page") int page ) {
-        ModelAndView modelAndView = new ModelAndView("zgloszenia-paginacja");
-        Pageable pageable = PageRequest.of(page - 1, 10);
-        Page<Zgloszenie> zgloszeniePage = zgloszenieService.getPaginated(pageable);
-        int totalPages = zgloszeniePage.getTotalPages();
-        if(totalPages > 0) {
-            List<Integer> pageNumbers = IntStream.rangeClosed(1,totalPages).boxed().collect(Collectors.toList());
-            modelAndView.addObject("pageNumbers", pageNumbers);
-        }
-        modelAndView.addObject("activeZgloszenieList", true);
-        modelAndView.addObject("zgloszenieList", zgloszeniePage.getContent());
-        return modelAndView;
+    @RequestMapping("/")
+    public String viewHomePage( Model model) {
+        Iterable<Zgloszenie> zgloszenieList = zgloszenieService.findAll();
+         model.addAttribute("zgloszenielist", zgloszenieList);
+        return "index";
     }
+
+//    @RequestMapping("/index/page/{page}")
+//    public ModelAndView listaZgloszen(@PathVariable("page") int page ) {
+//        ModelAndView modelAndView = new ModelAndView("zgloszenia-paginacja");
+//        Pageable pageable = PageRequest.of(page - 1, 10);
+//        Page<Zgloszenie> zgloszeniePage = zgloszenieService.getPaginated(pageable);
+//        int totalPages = zgloszeniePage.getTotalPages();
+//        if(totalPages > 0) {
+//            List<Integer> pageNumbers = IntStream.rangeClosed(1,totalPages).boxed().collect(Collectors.toList());
+//            modelAndView.addObject("pageNumbers", pageNumbers);
+//        }
+//        modelAndView.addObject("activeZgloszenieList", true);
+//        modelAndView.addObject("zgloszenieList", zgloszeniePage.getContent());
+//        Iterable<Zgloszenie> zgloszenieList = zgloszenieService.findAll();
+//        modelAndView.addObject("zgloszenielist", zgloszenieList);
+//        return modelAndView;
+//    }
 
     @RequestMapping("/nowe")
     public String showNoweZgloszenie(Model model) {
@@ -78,6 +81,7 @@ public class AppController {
         zgloszenie.setcData(new Date());
         zgloszenie.setStatus("1");
         zgloszenie.setDel(0);
+        zgloszenie.setuId((long) 1);
         zgloszenieService.save(zgloszenie);
         history.setzId(zgloszenie.getId());
         history.sethData(new Date());
@@ -115,8 +119,8 @@ public class AppController {
     public String przydzielZgloszenie(@PathVariable Long id, Model model) {
         Zgloszenie zgloszenie = zgloszenieService.get(id);
         model.addAttribute("zgloszenie", zgloszenie);
-        List<User> users = userService.findById();
-        model.addAttribute("users", users);
+//        List<User> users = userService.findById();
+//        model.addAttribute("users", users);
 //       List<User> userList = UserDAO.getUSERS();
 //       model.addAttribute("users", userList);
 //       List<User> users = (List<User>) userService.listAll();
@@ -127,6 +131,12 @@ public class AppController {
         return "przydziel";
     }
 
+//    @RequestMapping(value = "/historia/{id}")
+//    public String historiaZgloszenia(@PathVariable Long id, Model model) {
+//        Zgloszenie zgloszenie = zgloszenieService.get(id);
+//        model.addAttribute("zgloszenie", zgloszenie);
+//        Iterable<History> histories = hi
+//    }
 
 
 }

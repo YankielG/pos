@@ -17,7 +17,7 @@ public class ZgloszenieService {
     private ZgloszenieRepository repo;
 
     public Iterable<Zgloszenie> findAll() {
-        return repo.findAll();
+        return repo.findAllByDelIsTrue();
     }
 
     public Page<Zgloszenie> getPaginated(Pageable pageable) {
