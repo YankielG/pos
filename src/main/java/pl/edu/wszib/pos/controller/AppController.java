@@ -2,35 +2,24 @@ package pl.edu.wszib.pos.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.SortDefault;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import org.thymeleaf.model.IModel;
 import pl.edu.wszib.pos.helper.PageModel;
 import pl.edu.wszib.pos.model.History;
 import pl.edu.wszib.pos.model.User;
 import pl.edu.wszib.pos.model.Zgloszenie;
-import pl.edu.wszib.pos.repository.ZgloszenieRepository;
 import pl.edu.wszib.pos.service.HistoryService;
 import pl.edu.wszib.pos.service.RoleService;
 import pl.edu.wszib.pos.service.UserService;
 import pl.edu.wszib.pos.service.ZgloszenieService;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-
 
 
 @Controller
@@ -60,11 +49,11 @@ public class AppController {
 //    }
 
 
-    @RequestMapping("/")
+    @RequestMapping("/user/")
     public String viewHomePage(Model model) {
         Iterable<Zgloszenie> zgloszenieList = zgloszenieService.findAll();
          model.addAttribute("zgloszenielist", zgloszenieList);
-        return "index";
+        return "user/index";
     }
 
 //    @RequestMapping("/index/page/{page}")
@@ -84,14 +73,14 @@ public class AppController {
 //        return modelAndView;
 //    }
 
-    @RequestMapping("/nowe")
+    @RequestMapping("/user/nowe")
     public String showNoweZgloszenie(Model model) {
         Zgloszenie zgloszenie = new Zgloszenie();
         model.addAttribute("zgloszenie", zgloszenie);
-        return "nowe_zgloszenie";
+        return "user/nowe_zgloszenie";
     }
 
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    @RequestMapping(value = "/user/save", method = RequestMethod.POST)
     public String saveZgloszenie(@ModelAttribute("zgloszenie") Zgloszenie zgloszenie, @ModelAttribute("history") History history) {
         zgloszenie.setcData(new Date());
         zgloszenie.setStatus("1");
@@ -103,34 +92,34 @@ public class AppController {
         history.sethDescription("Test");
         history.sethUser("test");
         historyService.save(history);
-        return "podsumowanie";
+        return "user/podsumowanie";
     }
 
 
-    @GetMapping("/edycja/{id}")
+    @GetMapping("/user/edycja/{id}")
     public String edycjaZgloszenia(@PathVariable Long id, Model model) {
         Zgloszenie zgloszenie = zgloszenieService.get(id);
         model.addAttribute("zgloszenie", zgloszenie);
-        return "edycja-zgloszenia";
+        return "user/edycja-zgloszenia";
     }
 
-    @RequestMapping("/del/{id}")
+    @RequestMapping("/user/del/{id}")
     public String deleteZgloszenie(@PathVariable Long id, Model model) {
         Zgloszenie zgloszenie = zgloszenieService.get(id);
         model.addAttribute("zgloszenie", zgloszenie);
-        return "usun";
+        return "user/usun";
     }
 
-    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    @RequestMapping(value = "/user/delete", method = RequestMethod.POST)
     public String delZgloszenie(@ModelAttribute("zgloszenie") Zgloszenie zgloszenie) {
         zgloszenie.setDel(false);
         zgloszenieService.save(zgloszenie);
         History history = new History(zgloszenie.getId(), new Date(), "Usunięto z bazy", "test");
         historyService.save(history);
-        return "redirect:/";
+        return "user/redirect:/";
     }
 
-    @RequestMapping(value = "/przydziel/{id}")
+    @RequestMapping(value = "/manager/przydziel/{id}")
     public String przydzielZgloszenie(@PathVariable Long id, Model model) {
         Zgloszenie zgloszenie = zgloszenieService.get(id);
         model.addAttribute("zgloszenie", zgloszenie);
@@ -143,7 +132,7 @@ public class AppController {
 //       Iterable<User> users = userService.listAll();
 //       model.addAttribute(users);
 
-        return "przydziel";
+        return "manager/przydziel";
     }
 
 //    @RequestMapping(value = "/historia/{id}")
@@ -152,27 +141,27 @@ public class AppController {
 //        model.addAttribute("zgloszenie", zgloszenie);
 //        Iterable<History> histories = hi
 //    }
-@GetMapping("/details/{id}")
+@GetMapping("/user/details/{id}")
 public String detailsZgloszenia(@PathVariable Long id, Model model) {
     Zgloszenie zgloszenie = zgloszenieService.get(id);
     model.addAttribute("zgloszenie", zgloszenie);
-    return "szczegoly";
+    return "user/szczegoly";
 }
 
-    @RequestMapping("/zakoncz/{id}")
+    @RequestMapping("/user/zakoncz/{id}")
     public String zakonczZgloszenie(@PathVariable Long id, Model model) {
         Zgloszenie zgloszenie = zgloszenieService.get(id);
         model.addAttribute("zgloszenie", zgloszenie);
-        return "zakoncz";
+        return "user/zakoncz";
     }
 
-    @RequestMapping(value = "/end", method = RequestMethod.POST)
+    @RequestMapping(value = "/user/end", method = RequestMethod.POST)
     public String endZgloszenie(@ModelAttribute("zgloszenie") Zgloszenie zgloszenie) {
         zgloszenie.setStatus("3");
         zgloszenieService.save(zgloszenie);
         History history = new History(zgloszenie.getId(), new Date(), "Zamknięto zgłoszenie", "test");
         historyService.save(history);
-        return "redirect:/";
+        return "user/redirect:/";
     }
 
     @RequestMapping(value={"/", "/login"}, method = RequestMethod.GET)
