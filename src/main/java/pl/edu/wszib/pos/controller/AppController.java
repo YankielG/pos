@@ -1,17 +1,21 @@
 package pl.edu.wszib.pos.controller;
 
-import org.dom4j.rule.Mode;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.SortDefault;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.thymeleaf.model.IModel;
+import pl.edu.wszib.pos.helper.PageModel;
 import pl.edu.wszib.pos.model.History;
 import pl.edu.wszib.pos.model.User;
 import pl.edu.wszib.pos.model.Zgloszenie;
@@ -22,6 +26,7 @@ import pl.edu.wszib.pos.service.UserService;
 import pl.edu.wszib.pos.service.ZgloszenieService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -38,15 +43,25 @@ public class AppController {
     private UserService userService;
     @Autowired
     private HistoryService historyService;
-
+    @Autowired
+    private PageModel pageModel;
 
 
     private Long zgloszenieId;
     private Zgloszenie zgloszenie;
 
 
+//    @GetMapping("/zgloszenie")
+//    public String getAllZgloszenia(Model model) {
+//        pageModel.setSIZE(8);
+//        pageModel.initPageAndSize();
+//        model.addAttribute("zgloszenielist", zgloszenieService.findAll(PageRequest.of(pageModel.getPAGE(), pageModel.getSIZE())));
+//        return "index";
+//    }
+
+
     @RequestMapping("/")
-    public String viewHomePage( Model model) {
+    public String viewHomePage(Model model) {
         Iterable<Zgloszenie> zgloszenieList = zgloszenieService.findAll();
          model.addAttribute("zgloszenielist", zgloszenieList);
         return "index";
@@ -81,7 +96,7 @@ public class AppController {
         zgloszenie.setcData(new Date());
         zgloszenie.setStatus("1");
         zgloszenie.setDel(true);
-        zgloszenie.setuId((long) 1);
+        zgloszenie.setuId(1L);
         zgloszenieService.save(zgloszenie);
         history.setzId(zgloszenie.getId());
         history.sethData(new Date());
@@ -160,4 +175,56 @@ public String detailsZgloszenia(@PathVariable Long id, Model model) {
         return "redirect:/";
     }
 
+    @RequestMapping(value={"/", "/login"}, method = RequestMethod.GET)
+    public ModelAndView login(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("login");
+        return modelAndView;
+    }
+
+
+    @RequestMapping(value="/registration", method = RequestMethod.GET)
+    public ModelAndView registration(){
+        ModelAndView modelAndView = new ModelAndView();
+        User user = new User();
+        modelAndView.addObject("user", user);
+        modelAndView.setViewName("registration");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/registration", method = RequestMethod.POST)
+    public ModelAndView createNewUser(@Valid User user, BindingResult bindingResult) {
+        ModelAndView modelAndView = new ModelAndView();
+        User userExists = userService.findUserByUserName(user.getUserName());
+        if (userExists != null) {
+            bindingResult
+                    .rejectValue("userName", "error.user",
+                            "There is already a user registered with the user name provided");
+        }
+        if (bindingResult.hasErrors()) {
+            modelAndView.setViewName("registration");
+        } else {
+            userService.saveUser(user);
+            modelAndView.addObject("successMessage", "User has been registered successfully");
+            modelAndView.addObject("user", new User());
+            modelAndView.setViewName("registration");
+
+        }
+        return modelAndView;
+    }
+
+    @RequestMapping(value="/admin/home", method = RequestMethod.GET)
+    public ModelAndView home(){
+        ModelAndView modelAndView = new ModelAndView();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByUserName(auth.getName());
+        modelAndView.addObject("userName", "Welcome " + user.getUserName() + "/" + user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
+        modelAndView.addObject("adminMessage","Content Available Only for Users with Admin Role");
+        modelAndView.setViewName("admin/home");
+        return modelAndView;
+    }
+
+
 }
+
+

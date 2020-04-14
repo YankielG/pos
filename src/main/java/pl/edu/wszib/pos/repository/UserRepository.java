@@ -7,6 +7,7 @@ import pl.edu.wszib.pos.model.User;
 
 @Repository
 public interface UserRepository extends CrudRepository<User, Long> {
-
+    User findByEmail(String email);
+    User findByUserName(String userName);
 
 }

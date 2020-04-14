@@ -23,9 +23,10 @@ public class History {
     private String hDescription;
     //kto wykonał operację
     private String hUser;
-//    @ManyToOne(cascade = CascadeType.ALL)
+//    @ManyToOne(fetch = FetchType.LAZY, optional = false)
 //    @JoinColumn(name = "zgloszenie_id")
-//    private Long zId;
+//    private Zgloszenie zgloszenie;
+
 
     public History(Long zId, Date hData, String hDescription, String hUser) {
         this.zId = zId;

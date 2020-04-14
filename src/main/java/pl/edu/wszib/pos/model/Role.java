@@ -1,33 +1,23 @@
 package pl.edu.wszib.pos.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
-@Table(name = "role")
+@Table(name = "roles")
 public class Role {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long rId;
-    //nazwa roli
-    private String roleName;
-
-    public Long getId() {
-        return rId;
-    }
-
-    public void setId(Long id) {
-        this.rId = rId;
-    }
-
-    public String getRoleName() {
-        return roleName;
-    }
-
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
-    }
-
-    public Role(String roleName){
-        this.roleName = roleName;
-    }
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "role_id")
+    private int id;
+    @Column(name = "role")
+    private String role;
 }

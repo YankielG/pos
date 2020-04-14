@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import pl.edu.wszib.pos.model.Zgloszenie;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ZgloszenieRepository extends CrudRepository<Zgloszenie, Long> {
