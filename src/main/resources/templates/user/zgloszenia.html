@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" th:replace="~{fragments/layout::layout(~{::.container})}">
+
+<body>
+<div class="container">
+    <h2>Produkty</h2>
+    <table class="uk-table uk-table-striped uk-table-hover">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nazwa</th>
+            <th>Cena</th>
+            <th>Ilość</th>
+            <th>Dostępność</th>
+            <th>Akcje</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="zgloszenie : ${zgloszenia}">
+            <td th:text="${zgloszenie.id}"></td>
+            <td th:text="${zgloszenie.name}"></td>
+<!--            <td style="width:250px">-->
+<!--                <a th:href="@{/products/edit/{id}(id=${product.id})}"><input class="uk-button uk-button-primary" value="Edytuj" type="button"> </a>-->
+<!--                <a th:href="@{/products/remove/{id}(id=${product.id})}"><input class="uk-button uk-button-danger" value="Usuń" type="button"> </a>-->
+<!--            </td>-->
+        </tr>
+        </tbody>
+    </table>
+    <nav aria-label="Pagination" th:if="${zgloszenia.totalPages gt 0}">
+        <ul class="pagination justify-content-center font-weight-medium">
+            <li class="page-item" th:classappend="${zgloszenia.number eq 0} ? 'disabled'">
+                <a class="page-link svg-icon"
+                   th:href="@{/user/zgloszenia?page={id}(id=${zgloszenia.number lt 2 ? 1 : zgloszenia.number})}"
+                   aria-label="Previous"
+                   title="Previous Page" rel="tooltip">
+                    <span aria-hidden="true" data-feather="chevrons-left" width="20" height="20"></span>
+                </a>
+            </li>
+            <li class="page-item" th:classappend="${i eq zgloszenia.number + 1} ? 'active'"
+                th:each="i : ${#numbers.sequence( zgloszenia.number + 1, zgloszenia.totalPages > 10 + zgloszenia.number ? zgloszenia.number + 10 : zgloszenia.totalPages, 1)}">
+                <a class="page-link" th:href="@{/user/zgloszenia?page={id}(id=${i})}" th:text="${i}"
+                   th:title="${'Page '+ i}"
+                   rel="tooltip"></a>
+            </li>
+            <li class="page-item disabled" th:if="${zgloszenia.number + 10 < zgloszenia.totalPages}">
+                <a class="page-link svg-icon" href="#">
+                    <span data-feather="more-horizontal" width="20" height="20"></span>
+                </a>
+            </li>
+            <li class="page-item" th:classappend="${zgloszenia.number + 1 eq zgloszenia.totalPages} ? 'disabled'">
+                <a class="page-link svg-icon" th:href="@{/user/zgloszenia?page={id}(id=${zgloszenia.number + 2})}"
+                   aria-label="Next"
+                   title="Next Page" rel="tooltip">
+                    <span aria-hidden="true" data-feather="chevrons-right" width="20" height="20"></span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <div>
+        <a th:href="@{/products/new}"><input class="uk-button" type="button" value="Dodaj produkt" style="background-color: #32d296;color: white" > </a>
+    </div>
+
+
+</div>
+</body>
+</html>
