@@ -23,9 +23,9 @@ public class History {
     private String hDescription;
     //kto wykonał operację
     private String hUser;
-//    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-//    @JoinColumn(name = "zgloszenie_id")
-//    private Zgloszenie zgloszenie;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "zgloszenie_id")
+    private Zgloszenie zgloszenie;
 
 
     public History(Long zId, Date hData, String hDescription, String hUser) {
@@ -75,13 +75,13 @@ public class History {
         this.hUser = hUser;
     }
 
-//    public Zgloszenie getZgloszenie() {
-//        return zgloszenie;
-//    }
-//
-//    public void setZgloszenie(Zgloszenie zgloszenie) {
-//        this.zgloszenie = zgloszenie;
-//    }
+    public Zgloszenie getZgloszenie() {
+        return zgloszenie;
+    }
+
+    public void setZgloszenie(Zgloszenie zgloszenie) {
+        this.zgloszenie = zgloszenie;
+    }
 
     @Override
     public String toString() {

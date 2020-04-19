@@ -32,13 +32,16 @@ public class Zgloszenie {
     private String description;
     //status zgłoszenia
     private String status;
-    //komu przydzielono
-    private Long uId;
     // opis naprawy
     private String endDescription;
     //czy usunięto
     @Column(columnDefinition = "boolean default false")
     private boolean del;
+    //komu przydzielono
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id")
+    private User user;
+
 
     public Long getId() {
         return id;
@@ -112,14 +115,6 @@ public class Zgloszenie {
         this.status = status;
     }
 
-    public Long getuId() {
-        return uId;
-    }
-
-    public void setuId(Long uId) {
-        this.uId = uId;
-    }
-
     public String getEndDescription() {
         return endDescription;
     }
@@ -134,5 +129,13 @@ public class Zgloszenie {
 
     public void setDel(boolean del) {
         this.del = del;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
