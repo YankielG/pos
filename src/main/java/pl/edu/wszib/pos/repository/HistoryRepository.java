@@ -13,10 +13,6 @@ import java.util.Optional;
 
 @Repository
 public interface HistoryRepository extends CrudRepository<History, Long> {
-    Optional<History> findAllById (Long hId);
+    //Optional<History> findAllById (Long hId);
 
-    //historia dla konkretnego zgłoszenia
-    Page<History> findAllByZgloszenieId (Zgloszenie zgloszenie, Pageable pageable);
-    // historia dla konkretnego użytkownika
-    Page<History> findAllByHUser(User user, Pageable pageable);
 }

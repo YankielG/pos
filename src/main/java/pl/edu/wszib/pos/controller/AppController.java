@@ -2,21 +2,10 @@ package pl.edu.wszib.pos.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import pl.edu.wszib.pos.helper.PageModel;
-import pl.edu.wszib.pos.model.History;
 import pl.edu.wszib.pos.model.Zgloszenie;
 import pl.edu.wszib.pos.repository.ZgloszenieRepository;
-import pl.edu.wszib.pos.service.HistoryService;
-import pl.edu.wszib.pos.service.RoleService;
-import pl.edu.wszib.pos.service.UserService;
-import pl.edu.wszib.pos.service.ZgloszenieService;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.*;
+import pl.edu.wszib.pos.service.*;
 
 
 @Controller
@@ -30,26 +19,38 @@ public class AppController {
     @Autowired
     private HistoryService historyService;
     @Autowired
-    private PageModel pageModel;
-    @Autowired
     private ZgloszenieRepository zgloszenieRepository;
-
     private Long zgloszenieId;
     private Zgloszenie zgloszenie;
 
-
-    @RequestMapping("/")
-    public String viewHomePage(Model model) {
-        return "/index";
-    }
-
-    @GetMapping("/user/zgloszenia")
-    public String getAllZgloszenia(Model model) {
-        pageModel.setSIZE(10);
-        pageModel.initPageAndSize();
-        model.addAttribute("zgloszenia", zgloszenieRepository.findAllByIdAndDelIsTrue(PageRequest.of(pageModel.getSIZE(), pageModel.getPAGE())));
-        return "zgloszenia";
-    }
+//    @RequestMapping("/")
+//    public String viewHomePage(Model model) {
+//        return "/index";
+//    }
+//
+//    @RequestMapping(value = "/zgloszenia/page/{page}")
+//    public ModelAndView listZgloszenia(@PathVariable("page") int page) {
+//        ModelAndView modelAndView = new ModelAndView("zgloszenia-paging");
+//        PageRequest pageable = PageRequest.of(page - 1, 10);
+//       // Page<Zgloszenie> zgloszeniePage = zgloszenieService.getPaginatedZgloszenia(pageable);
+//        //int totalPages = zgloszeniePage.getTotalPages();
+//        if (totalPages > 0) {
+//            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages).boxed()
+//                    .collect(Collectors.toList());
+//            modelAndView.addObject("pageNumbers", pageNumbers);
+//        }
+//        modelAndView.addObject("activeZgloszenieList", true);
+//        modelAndView.addObject("zgloszenieList", zgloszeniePage.getContent());
+//        return modelAndView;
+//    }
+//
+//    @GetMapping("/user/zgloszenia")
+//    public String getAllZgloszenia(Model model) {
+//        pageModel.setSIZE(10);
+//        pageModel.initPageAndSize();
+//        model.addAttribute("zgloszenia", zgloszenieRepository.findAllByIdAndDelIsTrue(PageRequest.of(pageModel.getSIZE(), pageModel.getPAGE())));
+//        return "zgloszenia";
+//    }
 
 //    @GetMapping("/user/zgloszenia")
 //    public String getAllZgloszenia(Model model) {
@@ -135,7 +136,6 @@ public class AppController {
 //        historyService.save(history);
 //        return "user/redirect:/";
 //    }
-
 
 }
 

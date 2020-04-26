@@ -28,17 +28,17 @@ public class History {
     //kto wykonał operację
     private String hUser;
     //id zgloszenia
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "zgloszenie_id", nullable = false)
-    private Zgloszenie zgloszenie;
-    @ManyToMany(fetch = FetchType.LAZY,cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            })
-    @JoinTable(name = "user",
-            joinColumns = { @JoinColumn(name = "history_id") },
-            inverseJoinColumns = { @JoinColumn(name = "user_id") })
-    private Set<User> genres = new HashSet<>();
+//    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+//    @JoinColumn(name = "zgloszenie_id", nullable = false)
+//    private Zgloszenie zgloszenie;
+//    @ManyToMany(fetch = FetchType.LAZY,cascade = {
+//                    CascadeType.PERSIST,
+//                    CascadeType.MERGE
+//            })
+//    @JoinTable(name = "user",
+//            joinColumns = { @JoinColumn(name = "history_id") },
+//            inverseJoinColumns = { @JoinColumn(name = "user_id") })
+//    private Set<User> genres = new HashSet<>();
 
 
 }

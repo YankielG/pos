@@ -43,9 +43,9 @@ public class Zgloszenie {
     @Column(columnDefinition = "boolean default false")
     private boolean del;
    // komu przydzielono
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user_id")
-    private User user;
+//    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+//    @JoinColumn(name = "user_id")
+//    private User user;
 
 
 

@@ -18,17 +18,21 @@ public class ZgloszenieService {
     private ZgloszenieRepository repo;
 
 //    public Zgloszenie findAllByIdAndDelIsTrue(Long id) {
-//
+//    return  repo.findAllByIdAndDelIsTrue();
 //    }
-//    public Page<Zgloszenie> getPaginated(Pageable pageable) {
+////    public Page<Zgloszenie> getPaginated(Pageable pageable) {
 //        return repo.findAll(pageable);
 //    }
-//
+
+
     public Zgloszenie get(Long id) {
         Zgloszenie zgloszenie = repo.findById(id).get();
         return zgloszenie;
     }
-
+        //@Override
+//     public Page<Zgloszenie> getPaginatedZgloszenia(Pageable pageable){
+//         return repo.findAllByIdAndDelIsTrue(pageable);
+//     }
     public void save(Zgloszenie zgloszenie) {
         repo.save(zgloszenie);
     }
