@@ -13,6 +13,6 @@ import java.util.Optional;
 
 @Repository
 public interface HistoryRepository extends CrudRepository<History, Long> {
-    //Optional<History> findAllById (Long hId);
+
 
 }

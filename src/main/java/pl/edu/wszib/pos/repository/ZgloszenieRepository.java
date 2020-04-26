@@ -15,6 +15,6 @@ import java.util.Optional;
 
 @Repository
 public interface ZgloszenieRepository extends CrudRepository<Zgloszenie, Long> {
-    Optional<Zgloszenie> findAllByIdAndDelIsTrue (Long id);
+
 
 }

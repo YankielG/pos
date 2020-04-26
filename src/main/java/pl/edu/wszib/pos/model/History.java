@@ -22,11 +22,15 @@ public class History {
     @Column(name = "Id")
     private Long Id;
     // id zgłoszenia
+    private Long zId;
+    //data zdarzenia
     private Date hData;
     //rodzaj operacji
     private String hDescription;
     //kto wykonał operację
     private String hUser;
+
+
     //id zgloszenia
 //    @ManyToOne(fetch = FetchType.LAZY, optional = false)
 //    @JoinColumn(name = "zgloszenie_id", nullable = false)
@@ -41,4 +45,43 @@ public class History {
 //    private Set<User> genres = new HashSet<>();
 
 
+    public Long getId() {
+        return Id;
+    }
+
+    public void setId(Long id) {
+        Id = id;
+    }
+
+    public Date gethData() {
+        return hData;
+    }
+
+    public void sethData(Date hData) {
+        this.hData = hData;
+    }
+
+    public String gethDescription() {
+        return hDescription;
+    }
+
+    public void sethDescription(String hDescription) {
+        this.hDescription = hDescription;
+    }
+
+    public String gethUser() {
+        return hUser;
+    }
+
+    public void sethUser(String hUser) {
+        this.hUser = hUser;
+    }
+
+    public Long getzId() {
+        return zId;
+    }
+
+    public void setzId(Long zId) {
+        this.zId = zId;
+    }
 }
