@@ -10,7 +10,6 @@ import pl.edu.wszib.pos.configuration.Pager;
 import pl.edu.wszib.pos.model.Zgloszenie;
 import pl.edu.wszib.pos.service.*;
 
-import java.util.Date;
 import java.util.Optional;
 
 
@@ -58,12 +57,12 @@ public class AppController {
 //    private ZgloszenieRepository zgloszenieRepository;
 //    private Long zgloszenieId;
 //    private Zgloszenie zgloszenie;
-
-    @RequestMapping("/")
-    public String viewHomePage(Model model) {
-        return "/index";
-    }
 //
+//    @RequestMapping("/")
+//    public String viewHomePage(Model model) {
+//        return "glowna";
+//    }
+////
 //    @RequestMapping("/nowe")
 //    public String showNoweZgloszenie(Model model) {
 //        Zgloszenie zgloszenie = new Zgloszenie();
