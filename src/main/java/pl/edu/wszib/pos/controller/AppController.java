@@ -1,5 +1,6 @@
 package pl.edu.wszib.pos.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
@@ -7,9 +8,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import pl.edu.wszib.pos.configuration.Pager;
+import pl.edu.wszib.pos.model.History;
 import pl.edu.wszib.pos.model.Zgloszenie;
+import pl.edu.wszib.pos.repository.ZgloszenieRepository;
 import pl.edu.wszib.pos.service.*;
 
+import java.util.Date;
 import java.util.Optional;
 
 
@@ -46,43 +50,39 @@ public class AppController {
         return modelAndView;
     }
 //    @Autowired
-//    private ZgloszenieService zgloszenieService;
-//    @Autowired
 //    private RoleService roleService;
 //    @Autowired
 //    private UserService userService;
-//    @Autowired
-//    private HistoryService historyService;
-//    @Autowired
-//    private ZgloszenieRepository zgloszenieRepository;
+    @Autowired
+    private HistoryService historyService;
+    @Autowired
+    private ZgloszenieRepository zgloszenieRepository;
 //    private Long zgloszenieId;
 //    private Zgloszenie zgloszenie;
 //
-//    @RequestMapping("/")
-//    public String viewHomePage(Model model) {
-//        return "glowna";
-//    }
-////
-//    @RequestMapping("/nowe")
-//    public String showNoweZgloszenie(Model model) {
-//        Zgloszenie zgloszenie = new Zgloszenie();
-//        model.addAttribute("zgloszenie", zgloszenie);
-//        return "nowe_zgloszenie";
-//    }
-////
-//    @RequestMapping(value = "/save", method = RequestMethod.POST)
-//    public String saveZgloszenie(@ModelAttribute("zgloszenie") Zgloszenie zgloszenie, @ModelAttribute("history") History history) {
-//        zgloszenie.setcData(new Date());
-//        zgloszenie.setStatus("1");
-//        zgloszenie.setDel(true);
-//        zgloszenieService.save(zgloszenie);
-//        history.setzId(zgloszenie.getId());
-//        history.sethData(new Date());
-//        history.sethDescription("Test");
-//        history.sethUser("test");
-//        historyService.save(history);
-//        return "podsumowanie";
-//    }
+    @RequestMapping("/")
+    public String viewHomePage(Model model) {
+        return "glowna";
+    }
+    @RequestMapping("/nowe")
+    public String showNoweZgloszenie(Model model) {
+        Zgloszenie zgloszenie = new Zgloszenie();
+        model.addAttribute("zgloszenie", zgloszenie);
+        return "nowe_zgloszenie";
+    }
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public String saveZgloszenie(@ModelAttribute("zgloszenie") Zgloszenie zgloszenie, @ModelAttribute("history") History history) {
+        zgloszenie.setcData(new Date());
+        zgloszenie.setStatus("1");
+        zgloszenie.setDel(true);
+        zgloszenieRepository.save(zgloszenie);
+        history.setzId(zgloszenie.getId());
+        history.sethData(new Date());
+        history.sethDescription("Test");
+        history.sethUser("test");
+        historyService.save(history);
+        return "podsumowanie";
+    }
 
 
 //    @GetMapping("/edycja/{id}")
