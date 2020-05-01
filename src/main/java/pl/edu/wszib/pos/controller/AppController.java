@@ -3,6 +3,7 @@ package pl.edu.wszib.pos.controller;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import pl.edu.wszib.pos.configuration.Pager;
@@ -58,10 +59,10 @@ public class AppController {
 //    private Long zgloszenieId;
 //    private Zgloszenie zgloszenie;
 
-//    @RequestMapping("/")
-//    public String viewHomePage(Model model) {
-//        return "/index";
-//    }
+    @RequestMapping("/")
+    public String viewHomePage(Model model) {
+        return "/index";
+    }
 //
 //    @RequestMapping("/nowe")
 //    public String showNoweZgloszenie(Model model) {
