@@ -1,10 +1,58 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html xmlns:th="https://www.thymeleaf.org" th:replace="~{fragments/layout::layout(~{::.container})}">
 <body>
-
+<div class="container">
+    <div class="row">
+        <h1>Zgłoszenia usterek</h1>
+    </div>
+    <div class="row">
+        <table class="uk-table uk-table-striped uk-table-hover">
+            <tr>
+                <th>Id</th>
+                <th>Data zgłoszenia</th>
+                <th>Opis usterki</th>
+            </tr>
+            <tr th:each="zgloszenie : ${zgloszenia}">
+                <td th:text="${zgloszenie.id}"></td>
+                <td th:text="${zgloszenie.cData}"></td>
+                <td th:text="${zgloszenie.description}"></td>
+            </tr>
+        </table>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-1">
+            <select class="form-control pagination" id="pageSizeSelect">
+                <option th:each="pageSize : ${pageSizes}" th:text="${pageSize}" th:value="${pageSize}"
+                        th:selected="${pageSize} == ${selectedPageSize}"></option>
+            </select>
+        </div>
+        <div th:if="${zgloszenia.totalPages != 1}" class="form-group col-md-11 pagination-centered">
+            <ul class="pagination">
+                <li th:class="${zgloszenia.number == 0} ? disabled">
+                    <a class="pageLink" th:href="@{/(pageSize=${selectedPageSize}, page=1)}">&laquo;</a>
+                </li>
+                <li th:class="${zgloszenia.number == 0} ? disabled">
+                    <a class="pageLink" th:href="@{/(pageSize=${selectedPageSize}, page=${zgloszenia.number})}">&larr;</a>
+                </li>
+                <li th:class="${zgloszenia.number == (page - 1)} ? 'active pointer-disabled'"
+                    th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}">
+                    <a class="pageLink" th:href="@{/(pageSize=${selectedPageSize}, page=${page})}"
+                       th:text="${page}"></a>
+                </li>
+                <li th:class="${zgloszenia.number + 1 == zgloszenia.totalPages} ? disabled">
+                    <a class="pageLink"
+                       th:href="@{/(pageSize=${selectedPageSize}, page=${zgloszenia.number + 2})}">&rarr;</a>
+                </li>
+                <li th:class="${zgloszenia.number + 1 == zgloszenia.totalPages} ? disabled">
+                    <a class="pageLink"
+                       th:href="@{/(pageSize=${selectedPageSize}, page=${zgloszenia.totalPages})}">&raquo;</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script th:src="@{/webjars/jquery/1.11.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/zgloszenia.js}"></script>
 </body>
 </html>
