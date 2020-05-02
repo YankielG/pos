@@ -22,11 +22,8 @@ public class ZgloszenieServiceImpl implements ZgloszenieService {
         return zgloszenieRepository.findAll(pageable);
     }
 
-    @Override
-    public Zgloszenie get(Long id) {
-        Zgloszenie zgloszenie = zgloszenieRepository.findZgloszenieById(id);
-        return zgloszenie;
-    }
+
+
 
     public void save(Zgloszenie zgloszenie) {
         zgloszenieRepository.save(zgloszenie);

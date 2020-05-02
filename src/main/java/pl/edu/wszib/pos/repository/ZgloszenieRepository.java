@@ -6,8 +6,9 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 import pl.edu.wszib.pos.model.Zgloszenie;
 
+import java.util.Optional;
+
 @Repository
 public interface ZgloszenieRepository extends PagingAndSortingRepository<Zgloszenie, Long>, CrudRepository<Zgloszenie, Long> {
 
-    Zgloszenie findZgloszenieById(Long id);
-}
+ }

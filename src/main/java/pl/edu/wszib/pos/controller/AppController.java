@@ -18,6 +18,7 @@ import pl.edu.wszib.pos.repository.ZgloszenieRepository;
 import pl.edu.wszib.pos.service.*;
 
 import javax.mail.MessagingException;
+import javax.persistence.ManyToOne;
 import javax.validation.Valid;
 import java.util.Date;
 import java.util.Optional;
@@ -83,6 +84,28 @@ public class AppController {
         historyService.save(history);
         return "podsumowanie";
     }
+    @GetMapping("/edycja/{id}")
+    public String edycjaZgloszenia(@PathVariable Long id, Model model) {
+        Zgloszenie zgloszenie = zgloszenieService.get(id);
+        model.addAttribute("zgloszenie", zgloszenie);
+        return "edycja-zgloszenia";
+    }
+
+    @RequestMapping("/del/{id}")
+    public String deleteZgloszenie(@PathVariable Long id, Model model) {
+        Zgloszenie zgloszenie = zgloszenieService.get(id);
+        model.addAttribute("zgloszenie", zgloszenie);
+        return "usun";
+    }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public String delZgloszenie(@ModelAttribute("zgloszenie") Zgloszenie zgloszenie, @ModelAttribute("historia") History history) {
+        zgloszenie.setDel(false);
+        zgloszenieRepository.save(zgloszenie);
+//        History history = new History(zgloszenie.getId(), new Date(), "Usunięto z bazy", "test");
+//        historyService.save(history);
+        return "user/redirect:/";
+    }
 
     @GetMapping(value={"/", "/login"})
     public ModelAndView login(){
@@ -133,31 +156,8 @@ public class AppController {
     }
 
 
-    @GetMapping("/edycja/{id}")
-    public String edycjaZgloszenia(@PathVariable Long id, Model model) {
-        Zgloszenie zgloszenie = zgloszenieService.get(id);
-        model.addAttribute("zgloszenie", zgloszenie);
-        return "edycja-zgloszenia";
-    }
 
 
-//
-//    @RequestMapping("/del/{id}")
-//    public String deleteZgloszenie(@PathVariable Long id, Model model) {
-//        Zgloszenie zgloszenie = zgloszenieService.get(id);
-//        model.addAttribute("zgloszenie", zgloszenie);
-//        return "usun";
-//    }
-//////
-//    @RequestMapping(value = "/delete", method = RequestMethod.POST)
-//    public String delZgloszenie(@ModelAttribute("zgloszenie") Zgloszenie zgloszenie) {
-//        zgloszenie.setDel(false);
-//        zgloszenieService.save(zgloszenie);
-//        //History history = new History(zgloszenie.getId(), new Date(), "Usunięto z bazy", "test");
-//        //historyService.save(history);
-//        return "user/redirect:/";
-//    }
-//
 //    @RequestMapping(value = "/manager/przydziel/{id}")
 //    public String przydzielZgloszenie(@PathVariable Long id, Model model) {
 //        Zgloszenie zgloszenie = zgloszenieService.get(id);

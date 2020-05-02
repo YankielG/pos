@@ -9,7 +9,6 @@ import java.util.Optional;
 public interface ZgloszenieService {
     Page<Zgloszenie> findAllPageable(Pageable pageable);
 
-    Zgloszenie get(Long id);
 
-//    Optional<Zgloszenie> get(Long id);
+
 }
