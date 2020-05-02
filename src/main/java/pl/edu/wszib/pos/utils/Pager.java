@@ -1,4 +1,4 @@
-package pl.edu.wszib.pos.configuration;
+package pl.edu.wszib.pos.utils;
 
 public class Pager {
 

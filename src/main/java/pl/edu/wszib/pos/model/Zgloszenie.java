@@ -35,17 +35,20 @@ public class Zgloszenie {
     private Date cData;
     //opis zgłoszenia
     private String description;
-    //status zgłoszenia
-    private String status;
     // opis naprawy
     private String endDescription;
     //czy usunięto
     @Column(columnDefinition = "boolean default false")
     private boolean del;
-   // komu przydzielono
-//    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-//    @JoinColumn(name = "user_id")
-//    private User user;
+    //czy jest w realizacji
+    @Column(columnDefinition = "boolean default false")
+    private boolean is_proceed;
+    //czy zakończono
+    @Column(columnDefinition = "boolean default false")
+    private boolean is_end;
+
+    //komu przydzielono
+    private int user_id;
 
 
     public Long getId() {
@@ -112,14 +115,6 @@ public class Zgloszenie {
         this.description = description;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     public String getEndDescription() {
         return endDescription;
     }
@@ -134,5 +129,29 @@ public class Zgloszenie {
 
     public void setDel(boolean del) {
         this.del = del;
+    }
+
+    public boolean isIs_proceed() {
+        return is_proceed;
+    }
+
+    public void setIs_proceed(boolean is_proceed) {
+        this.is_proceed = is_proceed;
+    }
+
+    public boolean isIs_end() {
+        return is_end;
+    }
+
+    public void setIs_end(boolean is_end) {
+        this.is_end = is_end;
+    }
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 }

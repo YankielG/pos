@@ -9,4 +9,5 @@ import pl.edu.wszib.pos.model.Zgloszenie;
 @Repository
 public interface ZgloszenieRepository extends PagingAndSortingRepository<Zgloszenie, Long>, CrudRepository<Zgloszenie, Long> {
 
+    Zgloszenie findZgloszenieById(Long id);
 }

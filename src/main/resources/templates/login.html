@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>POS - logowanie</title>
+    <link rel="stylesheet" href="/css/uikit-min.css" th:href="@{/css/uikit.min.css}">
+    <link rel="stylesheet" href="css/uikit.css" th:href="@{/css/uikit.css}">
+    <script th:src="@{js/uikit.js}"></script>
+    <script th:src="@{js/uikit-icons.js}"></script>
+</head>
+
+<body>
+<img th:src="@{/images/zaloguj1.jpg}" class="uk-align-center" width="225" height="225" alt="Logowanie"/>
+<div class="uk-card-default uk-card uk-card-body" style="width: 400px; margin: 300px auto">
+     <form th:action="@{/login}" method="POST" class="form-signin">
+        <h3 th:class="uk-align-center">Zaloguj się</h3>
+        <br/>
+
+        <input type="text" id="user_name" name="user_name" placeholder="Użytkownik"
+               class="uk-input"/> <br/>
+        <br/>
+        <input type="password" th:placeholder="Hasło"
+               id="password" name="password" class="uk-input"/> <br/>
+
+        <div align="center" th:if="${param.error}">
+            <p style="font-size: 20; color: #FF1C19;">Nazwa użytkownika lub hasło są nieprawidłowe! Sprawdź je!</p>
+        </div>
+        <br />
+        <button class="uk-button uk-button-secondary uk-width-1-1" name="Submit" value="Login" type="Submit"
+                th:text="Zaloguj"></button>
+    </form>
+</div>
+</body>
+</html>

@@ -7,6 +7,8 @@ import pl.edu.wszib.pos.model.Zgloszenie;
 import pl.edu.wszib.pos.repository.ZgloszenieRepository;
 import pl.edu.wszib.pos.service.ZgloszenieService;
 
+import java.util.Optional;
+
 @Service
 public class ZgloszenieServiceImpl implements ZgloszenieService {
     private final ZgloszenieRepository zgloszenieRepository;
@@ -20,9 +22,15 @@ public class ZgloszenieServiceImpl implements ZgloszenieService {
         return zgloszenieRepository.findAll(pageable);
     }
 
+    @Override
+    public Zgloszenie get(Long id) {
+        Zgloszenie zgloszenie = zgloszenieRepository.findZgloszenieById(id);
+        return zgloszenie;
+    }
+
     public void save(Zgloszenie zgloszenie) {
         zgloszenieRepository.save(zgloszenie);
     }
 
 
-   }
+}
