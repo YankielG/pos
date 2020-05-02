@@ -84,19 +84,19 @@ public class AppController {
         historyService.save(history);
         return "podsumowanie";
     }
-    @GetMapping("/edycja/{id}")
-    public String edycjaZgloszenia(@PathVariable Long id, Model model) {
-        Zgloszenie zgloszenie = zgloszenieService.get(id);
-        model.addAttribute("zgloszenie", zgloszenie);
-        return "edycja-zgloszenia";
-    }
-
-    @RequestMapping("/del/{id}")
-    public String deleteZgloszenie(@PathVariable Long id, Model model) {
-        Zgloszenie zgloszenie = zgloszenieService.get(id);
-        model.addAttribute("zgloszenie", zgloszenie);
-        return "usun";
-    }
+//    @GetMapping("/edycja/{id}")
+//    public String edycjaZgloszenia(@PathVariable Long id, Model model) {
+//        Zgloszenie zgloszenie = zgloszenieService.get(id);
+//        model.addAttribute("zgloszenie", zgloszenie);
+//        return "edycja-zgloszenia";
+//    }
+//
+//    @RequestMapping("/del/{id}")
+//    public String deleteZgloszenie(@PathVariable Long id, Model model) {
+//        Zgloszenie zgloszenie = zgloszenieService.get(id);
+//        model.addAttribute("zgloszenie", zgloszenie);
+//        return "usun";
+//    }
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public String delZgloszenie(@ModelAttribute("zgloszenie") Zgloszenie zgloszenie, @ModelAttribute("historia") History history) {
@@ -104,7 +104,7 @@ public class AppController {
         zgloszenieRepository.save(zgloszenie);
 //        History history = new History(zgloszenie.getId(), new Date(), "Usunięto z bazy", "test");
 //        historyService.save(history);
-        return "user/redirect:/";
+        return "redirect:/";
     }
 
     @GetMapping(value={"/", "/login"})
