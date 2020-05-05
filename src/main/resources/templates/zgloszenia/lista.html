@@ -2,7 +2,7 @@
 <html xmlns:th="https://www.thymeleaf.org" xmlns:sd="http://www.w3.org/1999/xhtml"
       th:replace="~{fragments/layout::layout(~{::.container})}">
 <head>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
 </head>
 <body>
 <div class="container">
@@ -12,19 +12,19 @@
     <div class="row">
         <table class="uk-table uk-table-striped uk-table-hover">
             <tr>
-                <th>Id</th>
-                <th>Data zgłoszenia</th>
-                <th>Opis usterki</th>
+                <th><a class="uk-sortable" sd:pagination-sort="id">Id</a></th>
+                <th><a class="uk-sortable">Data zgłoszenia</a></th>
+                <th><a class="uk-sortable" sd:pagination-sort="description">Opis usterki</a></th>
                 <th>Akcje</th>
             </tr>
             <tr th:each="zgloszenie : ${listaZgloszen}">
                 <td th:text="${zgloszenie.id}"></td>
                 <td th:text="${zgloszenie.cData}"></td>
                 <td th:text="${zgloszenie.description}"></td>
-                <td style="width:250px">
+                <td style="width:350px">
                     <a th:href="@{/zgloszenia/form/(id=${zgloszenie.id})}"><input class="uk-button uk-button-primary" value="Edytuj" type="button"> </a>
-<!--                    <a th:href="/@{'/edit/' + ${zgloszenie.id}"><input class="uk-button uk-button-primary" value="Edytuj" type="button"> </a>-->
-<!--                    <a th:href="@{/zgloszenia/remove/{id}(id=${zgloszenie.id})}"><input class="uk-button uk-button-danger" value="Usuń" type="button"> </a>-->
+                    <a th:href="@{/zgloszenia/details/(id=${zgloszenie.id})}"><input class="uk-button uk-button-primary" value="Szczegóły" type="button"> </a>
+                    <a th:href="@{/zgloszenia/del/{id}(id=${zgloszenie.id})}"><input class="uk-button uk-button-danger" value="Usuń" type="button"> </a>
                 </td>
             </tr>
         </table>

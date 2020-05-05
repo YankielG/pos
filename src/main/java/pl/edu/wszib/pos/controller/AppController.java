@@ -12,26 +12,21 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
+import pl.edu.wszib.pos.model.History;
 import pl.edu.wszib.pos.model.Zgloszenie;
 import pl.edu.wszib.pos.repository.ZgloszenieRepository;
+import pl.edu.wszib.pos.service.HistoryService;
 import pl.edu.wszib.pos.service.impl.ZgloszenieServiceImpl;
 import pl.edu.wszib.pos.utils.Pager;
 
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.Optional;
 
 
 @Controller
 @RequestMapping("/")
 public class AppController {
-//    private static final int BUTTONS_TO_SHOW = 5;
-//    private static final int INITIAL_PAGE = 0;
-//    private static final int INITIAL_PAGE_SIZE = 5;
-//    private static final int[] PAGE_SIZES = {5};
-//    private final ZgloszenieServiceImpl zgloszenieService;
-//    public AppController(ZgloszenieServiceImpl zgloszenieService) {
-//        this.zgloszenieService = zgloszenieService;
-//    }
 
     @Autowired
     private ZgloszenieRepository repo;
@@ -45,26 +40,13 @@ public class AppController {
             return new ModelMap().addAttribute("listaZgloszen", repo.findAll(pageable));
         }
     }
-//    @GetMapping("/zgloszenia/lista")
-//    public ModelAndView showPersonsPage(@RequestParam("pageSize") Optional<Integer> pageSize,
-//                                        @RequestParam("page") Optional<Integer> page) {
-//        ModelAndView modelAndView = new ModelAndView("zgloszenia/lista");
-//        int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
-//        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
-//        Page<Zgloszenie> zgloszenia = zgloszenieService.findAllPageable(PageRequest.of(evalPage, evalPageSize));
-//        Pager pager = new Pager(zgloszenia.getTotalPages(), zgloszenia.getNumber(), BUTTONS_TO_SHOW);
-//        modelAndView.addObject("zgloszenia", zgloszenia);
-//        modelAndView.addObject("selectedPageSize", evalPageSize);
-//        modelAndView.addObject("pageSizes", PAGE_SIZES);
-//        modelAndView.addObject("pager", pager);
-//        return modelAndView;
-//    }
+
 //    @Autowired
 //    private RoleService roleService;
 //    @Autowired
 //    private UserService userService;
-//    @Autowired
-//    private HistoryService historyService;
+    @Autowired
+    private HistoryService historyService;
 //    @Autowired
 //    private ZgloszenieServiceImpl zgloszenieService;
 //    private Long zgloszenieId;
@@ -83,46 +65,49 @@ public class AppController {
         return new ModelMap("zgloszenie", zgloszenie);
     }
 
-    @PostMapping("/zgloszenia/form")
-    public String save(@ModelAttribute @Valid Zgloszenie zgloszenie, BindingResult errors, SessionStatus status){
-        if (errors.hasErrors()){
-            return "zgloszenia/form";
-        }
-        repo.save(zgloszenie);
-        return "redirect:lista";
+    @GetMapping("/zgloszenia/add")
+    public ModelMap addZgloszenie(Zgloszenie zgloszenie){
+        return new ModelMap("zgloszenie", zgloszenie);
     }
-//
-//    @RequestMapping(value = "/save", method = RequestMethod.POST)
-//    public String saveZgloszenie(@ModelAttribute("zgloszenie") Zgloszenie zgloszenie, @ModelAttribute("history") History history) {
-//        zgloszenie.setcData(new Date());
-//        //zgloszenie.setStatus("1");
-//        zgloszenie.setDel(true);
-//        zgloszenieRepository.save(zgloszenie);
-//        history.setzId(zgloszenie.getId());
-//        history.sethData(new Date());
-//        history.sethDescription("Test");
-//        history.sethUser("test");
-//        historyService.save(history);
-//        return "podsumowanie";
-//    }
 
-//    @RequestMapping("/edycja{id}")
-//    public ModelAndView showEditZgloszeniePage(@PathVariable Long id) {
-//        ModelAndView modelAndView = new ModelAndView("edycja-zgloszenia");
-//        Zgloszenie zgloszenie = zgloszenieService.get(id);
-//        modelAndView.addObject("zgloszenie", zgloszenie);
-//        return modelAndView;
-//    }
-//    @GetMapping("/edycja/{id}")
-//    public String edycjaZgloszenia(@PathVariable Long id, Model model) {
-//        Zgloszenie zgloszenie = zgloszenieService.get(id);
-//        model.addAttribute("zgloszenie", zgloszenie);
-//        return "edycja-zgloszenia";
-//    }
+
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    public String edit(@ModelAttribute("zgloszenie") Zgloszenie zgloszenie, @ModelAttribute("history") History history) {
+        //zgloszenie.setcData(zgloszenie.getcData());
+        //zgloszenie.setStatus("1");
+        zgloszenie.setDel(true);
+        repo.save(zgloszenie);
+        history = new History();
+        history.setzId(zgloszenie.getId());
+        history.sethData(new Date());
+        history.sethDescription("Edit");
+        history.sethUser("edit");
+        historyService.save(history);
+        return "redirect:zgloszenia/lista";
+    }
+
+    @RequestMapping(value = "/saveAdd", method = RequestMethod.POST)
+    public String saveAdd(@ModelAttribute("zgloszenie") Zgloszenie zgloszenie, @ModelAttribute("history") History history) {
+        zgloszenie.setcData(new Date());
+        //zgloszenie.setStatus("1");
+        zgloszenie.setDel(true);
+        repo.save(zgloszenie);
+        history.setzId(zgloszenie.getId());
+        history.sethData(new Date());
+        history.sethDescription("Test");
+        history.sethUser("test");
+        historyService.save(history);
+        return "redirect:zgloszenia/lista";
+    }
+    @GetMapping("/zgloszenia/details")
+    public ModelMap details(@RequestParam(value = "id",required = false)Zgloszenie zgloszenie){
+        return new ModelMap("zgloszenie", zgloszenie);
+    }
+
 
 //    @RequestMapping("/del/{id}")
 //    public String deleteZgloszenie(@PathVariable Long id, Model model) {
-//        Zgloszenie zgloszenie = zgloszenieService.get(id);
+//        Zgloszenie zgloszenie = repo.get(id);
 //        model.addAttribute("zgloszenie", zgloszenie);
 //        return "usun";
 //    }
@@ -130,12 +115,12 @@ public class AppController {
 //    @RequestMapping(value = "/delete", method = RequestMethod.POST)
 //    public String delZgloszenie(@ModelAttribute("zgloszenie") Zgloszenie zgloszenie, @ModelAttribute("historia") History history) {
 //        zgloszenie.setDel(false);
-//        zgloszenieRepository.save(zgloszenie);
-////        History history = new History(zgloszenie.getId(), new Date(), "Usunięto z bazy", "test");
+//        repo.save(zgloszenie);
+////        History history = new History("", new Date(), "Usunięto z bazy", "test", zgloszenie.getId());
 ////        historyService.save(history);
 //        return "redirect:/";
 //    }
-//
+
     @GetMapping(value={"/", "/login"})
     public ModelAndView login(){
         ModelAndView modelAndView = new ModelAndView();

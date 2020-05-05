@@ -11,6 +11,7 @@ import pl.edu.wszib.pos.model.Zgloszenie;
 import java.util.Optional;
 
 @Repository
-public interface ZgloszenieRepository extends PagingAndSortingRepository<Zgloszenie, Long > {
+public interface ZgloszenieRepository extends PagingAndSortingRepository<Zgloszenie, Long>, CrudRepository<Zgloszenie, Long> {
  public Page<Zgloszenie> findAllByIdAndDelIsFalse(Long id, Pageable pageable);
+
 }

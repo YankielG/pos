@@ -84,4 +84,12 @@ public class History {
     public void setzId(Long zId) {
         this.zId = zId;
     }
+
+    public History(Long Id, Date hData, String hDescription, String hUser, Long zId) {
+        this.Id = Id;
+        this.hData = hData;
+        this.hDescription = hDescription;
+        this.hUser = hUser;
+        this.zId = zId;
+    }
 }

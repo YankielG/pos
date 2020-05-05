@@ -2,9 +2,10 @@
 <html xmlns:th="https://www.thymeleaf.org" th:replace="~{fragments/layout::layout(~{::.container})}">
 <head>
     <meta charset="UTF-8">
+
 <body>
 <div class="container">
-    <form style="width: 400px;margin: auto" th:object="${zgloszenie}" th:action="@{/edit}" method="post">
+    <form style="width: 400px;margin: auto" th:object="${zgloszenie}" th:action="@{/saveAdd}" method="post">
         <div class="uk-margin">
             <label>Dane zgłaszającego (Imię i nazwisko)</label>
             <input th:field="*{name}" type="text" class="uk-input">
@@ -20,7 +21,7 @@
         </div>
         <div class="uk-button uk-form-controls">
             <label>Typ zgłoszenia</label>
-<!--            <input th:field="*{type}" type="text" class="uk-input">-->
+            <!--            <input th:field="*{type}" type="text" class="uk-input">-->
             <select th:field="*{type}" class="uk-input">
                 <option th:value="'Komputer stacjonarny'">Komputer stacjonarny</option>
                 <option th:value="'Komputer przenośny'">Komputer przenośny/laptop</option>
@@ -41,7 +42,6 @@
             <textarea th:field="*{description}" class="uk-textarea" rows="5"></textarea>
         </div>
         <input th:field="*{id}" type="number" hidden>
-        <input th:field="*{cData}" type="text" hidden>
         <a th:href="@{/static}"><input class="uk-button uk-button-danger" type="button" value="Anuluj"></a>
         <input type="submit" class="uk-button uk-button-primary" value="Zapisz">
     </form>
