@@ -16,11 +16,13 @@ import pl.edu.wszib.pos.model.History;
 import pl.edu.wszib.pos.model.Zgloszenie;
 import pl.edu.wszib.pos.repository.ZgloszenieRepository;
 import pl.edu.wszib.pos.service.HistoryService;
+import pl.edu.wszib.pos.service.RoleService;
+import pl.edu.wszib.pos.service.UserService;
 import pl.edu.wszib.pos.service.impl.ZgloszenieServiceImpl;
-import pl.edu.wszib.pos.utils.Pager;
 
 import javax.validation.Valid;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -41,14 +43,14 @@ public class AppController {
         }
     }
 
-//    @Autowired
-//    private RoleService roleService;
-//    @Autowired
-//    private UserService userService;
+    @Autowired
+    private RoleService roleService;
+    @Autowired
+    private UserService userService;
     @Autowired
     private HistoryService historyService;
-//    @Autowired
-//    private ZgloszenieServiceImpl zgloszenieService;
+    @Autowired
+    private ZgloszenieServiceImpl zgloszenieService;
 //    private Long zgloszenieId;
 //    private Zgloszenie zgloszenie;
     @RequestMapping("/glowna")
@@ -104,12 +106,22 @@ public class AppController {
         return new ModelMap("zgloszenie", zgloszenie);
     }
 
-
-//    @RequestMapping("/del/{id}")
-//    public String deleteZgloszenie(@PathVariable Long id, Model model) {
-//        Zgloszenie zgloszenie = repo.get(id);
-//        model.addAttribute("zgloszenie", zgloszenie);
-//        return "usun";
+//    @GetMapping("zgloszenia/del")
+//    public ModelMap usunZgłoszenie(@RequestParam(value = "id")Zgloszenie zgloszenie) {
+//        return new ModelMap("zgloszenie", zgloszenie);
+//    }
+//
+//    @RequestMapping(value = "/del", method = RequestMethod.POST)
+//    public String delZgloszenie(@ModelAttribute("zgloszenie") Zgloszenie zgloszenie, @ModelAttribute("history") History history) {
+//        //zgloszenie.setStatus("1");
+//        zgloszenie.setDel(true);
+//        repo.save(zgloszenie);
+//        history.setzId(zgloszenie.getId());
+//        history.sethData(new Date());
+//        history.sethDescription("usunięto");
+//        history.sethUser("test");
+//        historyService.save(history);
+//        return "redirect:zgloszenia/lista";
 //    }
 //
 //    @RequestMapping(value = "/delete", method = RequestMethod.POST)
