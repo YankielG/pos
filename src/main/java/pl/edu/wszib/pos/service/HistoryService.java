@@ -6,6 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.edu.wszib.pos.model.History;
 import pl.edu.wszib.pos.repository.HistoryRepository;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class HistoryService {

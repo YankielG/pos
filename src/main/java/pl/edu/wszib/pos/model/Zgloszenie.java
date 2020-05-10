@@ -7,11 +7,8 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "zgloszenie")
 public class Zgloszenie {
@@ -47,9 +44,13 @@ public class Zgloszenie {
     @Column(columnDefinition = "boolean default false")
     private boolean is_end;
 
-    //komu przydzielono
-    private int user_id;
+//    //komu przydzielono
+////    private int user_id;
+    @OneToMany(targetEntity = History.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<History> histories;
 
+//    @OneToMany(mappedBy = "users", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+//    private List<User> users;
 
     public Long getId() {
         return id;
@@ -147,11 +148,23 @@ public class Zgloszenie {
         this.is_end = is_end;
     }
 
-    public int getUser_id() {
-        return user_id;
+    public List<History> getHistories() {
+        return histories;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setHistories(List<History> histories) {
+        this.histories = histories;
     }
+
+//    public List<User> getUsers() {
+//        return users;
+//    }
+//
+//    public void setUsers(List<User> users) {
+//        this.users = users;
+//    }
+
+    public Zgloszenie() {
+    }
+
 }

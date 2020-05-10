@@ -10,10 +10,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
+
 @Entity
 @Table(name = "history")
 public class History {
@@ -21,7 +18,7 @@ public class History {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
     private Long Id;
-    // id zgłoszenia
+//    // id zgłoszenia
     private Long zId;
     //data zdarzenia
     private Date hData;
@@ -29,21 +26,9 @@ public class History {
     private String hDescription;
     //kto wykonał operację
     private String hUser;
-
-
-    //id zgloszenia
-//    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-//    @JoinColumn(name = "zgloszenie_id", nullable = false)
+//    @ManyToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "zgloszenie_id")
 //    private Zgloszenie zgloszenie;
-//    @ManyToMany(fetch = FetchType.LAZY,cascade = {
-//                    CascadeType.PERSIST,
-//                    CascadeType.MERGE
-//            })
-//    @JoinTable(name = "user",
-//            joinColumns = { @JoinColumn(name = "history_id") },
-//            inverseJoinColumns = { @JoinColumn(name = "user_id") })
-//    private Set<User> genres = new HashSet<>();
-
 
     public Long getId() {
         return Id;
@@ -76,7 +61,7 @@ public class History {
     public void sethUser(String hUser) {
         this.hUser = hUser;
     }
-
+//
     public Long getzId() {
         return zId;
     }
@@ -85,11 +70,15 @@ public class History {
         this.zId = zId;
     }
 
+
     public History(Long Id, Date hData, String hDescription, String hUser, Long zId) {
         this.Id = Id;
         this.hData = hData;
         this.hDescription = hDescription;
         this.hUser = hUser;
         this.zId = zId;
+    }
+
+    public History() {
     }
 }

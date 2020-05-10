@@ -1,29 +1,23 @@
 package pl.edu.wszib.pos.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
 import pl.edu.wszib.pos.model.History;
 import pl.edu.wszib.pos.model.Zgloszenie;
+import pl.edu.wszib.pos.repository.HistoryRepository;
 import pl.edu.wszib.pos.repository.ZgloszenieRepository;
-import pl.edu.wszib.pos.service.HistoryService;
 import pl.edu.wszib.pos.service.RoleService;
 import pl.edu.wszib.pos.service.UserService;
 import pl.edu.wszib.pos.service.impl.ZgloszenieServiceImpl;
 
-import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 
 @Controller
@@ -47,10 +41,13 @@ public class AppController {
     private RoleService roleService;
     @Autowired
     private UserService userService;
-    @Autowired
-    private HistoryService historyService;
-    @Autowired
+//    @Autowired
+//    private HistoryService historyService;
+//    @Autowired
     private ZgloszenieServiceImpl zgloszenieService;
+
+    @Autowired
+    private HistoryRepository historyRepository;
 //    private Long zgloszenieId;
 //    private Zgloszenie zgloszenie;
     @RequestMapping("/glowna")
@@ -61,9 +58,6 @@ public class AppController {
 
     @GetMapping("/zgloszenia/form")
     public ModelMap edycjaZgloszenia(@RequestParam(value = "id",required = false)Zgloszenie zgloszenie){
-        if(zgloszenie == null){
-            zgloszenie = new Zgloszenie();
-        }
         return new ModelMap("zgloszenie", zgloszenie);
     }
 
@@ -83,8 +77,8 @@ public class AppController {
         history.setzId(zgloszenie.getId());
         history.sethData(new Date());
         history.sethDescription("Edit");
-        history.sethUser("edit");
-        historyService.save(history);
+       history.sethUser("edit");
+        historyRepository.save(history);
         return "redirect:zgloszenia/lista";
     }
 
@@ -98,13 +92,38 @@ public class AppController {
         history.sethData(new Date());
         history.sethDescription("Test");
         history.sethUser("test");
-        historyService.save(history);
+        historyRepository.save(history);
         return "redirect:zgloszenia/lista";
     }
     @GetMapping("/zgloszenia/details")
     public ModelMap details(@RequestParam(value = "id",required = false)Zgloszenie zgloszenie){
         return new ModelMap("zgloszenie", zgloszenie);
     }
+
+    @GetMapping("/zgloszenia/history")
+    public String history(@RequestParam(value = "id",required = false)Long id, Zgloszenie zgloszenie, History history, Model model) {
+        id = zgloszenie.getId();
+        List<History> histories = historyRepository.findByzId(id);
+        model.addAttribute("histories", histories);
+        return "zgloszenia/history";
+    }
+//    @GetMapping("/zgloszenia/{id}/history")
+//    public String history(@PathVariable("id") Long id, Zgloszenie zgloszenie, History history, Model model) {
+//        id = zgloszenie.getId();
+//        List<History> histories = historyRepository.findByzId(id);
+//        model.addAttribute("histories", histories);
+//        return "zgloszenia/history";
+
+    //}
+
+//    @GetMapping("/zgloszenia/{id}/history")
+//    public String history(@PathVariable("id") Long ZgloszenieId, Model model) {
+//        List<History> histories = historyRepository.findByzId(ZgloszenieId);
+//        model.addAttribute("histories", histories);
+//        return "zgloszenia/history";
+//
+//    }
+
 
 //    @GetMapping("zgloszenia/del")
 //    public ModelMap usunZgłoszenie(@RequestParam(value = "id")Zgloszenie zgloszenie) {

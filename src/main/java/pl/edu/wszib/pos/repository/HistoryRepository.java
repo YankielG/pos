@@ -9,10 +9,10 @@ import pl.edu.wszib.pos.model.History;
 import pl.edu.wszib.pos.model.User;
 import pl.edu.wszib.pos.model.Zgloszenie;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface HistoryRepository extends CrudRepository<History, Long> {
-
-
+List<History> findByzId(Long id);
 }

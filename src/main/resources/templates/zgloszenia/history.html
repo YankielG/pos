@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" th:replace="~{fragments/layout::layout(~{::.container})}">
+
+<body>
+<div class="container">
+    <h2>Historia zgłoszenia</h2>
+    <table class="uk-table uk-table-striped uk-table-hover">
+        <thead>
+        <tr>
+            <th>Data</th>
+            <th>Szczegóły historii</th>
+            <th>Użytkownik</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="history : ${histories}">
+            <td th:text="${history.hData}"></td>
+            <td th:text="${history.hDescription}"></td>
+            <td th:text="${history.hUser}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/zgloszenia/lista}"><input class="uk-button uk-button-danger" type="button" value="Zamknij"></a>
+</div>
+</body>
+</html>
