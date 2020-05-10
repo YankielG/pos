@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" th:replace="~{fragments/layout::layout(~{::.container})}">
+
+<body>
+<div class="container">
+    <h2>Kategorie zgłoszeń</h2>
+    <table class="uk-table uk-table-striped uk-table-hover">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nazwa kategorii</th>
+            <th>Akcje</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="category : ${categories}">
+            <td th:text="${category.id}"></td>
+            <td th:text="${category.name}"></td>
+<!--            <td th:text="${history.hUser}"></td>-->
+        </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/admin/add_category}"><input class="uk-button uk-button-danger" type="button" value="Dodaj"></a>
+</div>
+</body>
+</html>

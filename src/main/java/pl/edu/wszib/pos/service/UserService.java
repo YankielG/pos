@@ -21,6 +21,7 @@ public class UserService {
 
     private UserRepository userRepository;
     private RoleRepository roleRepository;
+    private static final List<User> users = new ArrayList<User>();
     //private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 //    @Autowired
@@ -32,13 +33,18 @@ public class UserService {
 //        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 //    }
 //
-//    public User findUserByEmail(String email) {
-//        return userRepository.findByEmail(email);
-//    }
+    public User findUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
 //
-//    public User findUserByUserName(String userName) {
-//        return userRepository.findByUserName(userName);
-//    }
+    public User findUserByUserName(String userName) {
+        return userRepository.findByUserName(userName);
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
 //
 //    public User saveUser(User user) {
 //        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));

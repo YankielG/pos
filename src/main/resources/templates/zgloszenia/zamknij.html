@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" th:replace="~{fragments/layout::layout(~{::.container})}">
+<head>
+    <meta charset="UTF-8">
+<body>
+<div class="container">
+    <form style="width: 400px;margin: auto" th:object="${zgloszenie}" th:action="@{/saveEnd}" method="post">
+        <div class="uk-margin">
+            <label>Dane zgłaszającego (Imię i nazwisko)</label>
+            <input th:field="*{name}" type="text" class="uk-input">
+        </div>
+        <div class="uk-margin">
+            <label>Adres e-mail zgłaszającego</label>
+            <input th:field="*{email}" type="text" class="uk-input" readonly>
+        </div>
+        <div class="uk-margin">
+            <label>Telefon zgłaszającego</label>
+            <input th:field="*{phone}" type="text" class="uk-input" readonly>
+        </div>
+        <div class="uk-button uk-form-controls">
+            <label>Typ zgłoszenia</label>
+            <!--            <input th:field="*{type}" type="text" class="uk-input">-->
+            <select th:field="*{type}" class="uk-input" th:readonly="readonly">
+                <option th:value="'Komputer stacjonarny'">Komputer stacjonarny</option>
+                <option th:value="'Komputer przenośny'">Komputer przenośny/laptop</option>
+                <option th:value="'Drukarka atramentowa'">Drukarka atramentowa</option>
+                <option th:value="'Drukarka laserowa'">Drukarka laserowa</option>
+                <option th:value="'Monitor'">Monitor</option>
+                <option th:value="'Oprogramowanie'">Oprogramowanie</option>
+                <option th:value="'Problemy sieciowe'">Problemy sieciowe</option>
+                <option th:value="'Inne'">Inne - niewymienione powyżej</option>
+            </select>
+        </div>
+        <div class="uk-margin">
+            <label>Numer seryjny urządzenia</label>
+            <input th:field="*{serialNumber}" type="text" class="uk-input" readonly>
+        </div>
+        <div class="uk-margin">
+            <label>Opis usterki/zgłoszenia</label>
+            <textarea th:field="*{description}" class="uk-textarea" rows="5" th:readonly="readonly"></textarea>
+        </div>
+        <div class="uk-margin">
+            <label>Opis zamknięcia usterki/zgłoszenia</label>
+            <textarea th:field="*{endDescription}" class="uk-textarea" rows="5"></textarea>
+        </div>
+        <input th:field="*{id}" type="number">
+        <input th:field="*{cData}" type="text">
+        <a th:href="@{/static}"><input class="uk-button uk-button-danger" type="button" value="Anuluj"></a>
+        <input type="submit" class="uk-button uk-button-primary" value="Zapisz">
+    </form>
+
+</div>
+</body>
+</html>

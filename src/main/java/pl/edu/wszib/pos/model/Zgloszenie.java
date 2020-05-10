@@ -29,6 +29,7 @@ public class Zgloszenie {
     // data zgłoszenia
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "c_data", updatable = false, nullable = false)
     private Date cData;
     //opis zgłoszenia
     private String description;

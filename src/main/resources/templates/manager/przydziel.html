@@ -33,8 +33,23 @@
             <label>Opis usterki/zgłoszenia : </label>
             <td th:utext="${zgloszenie.description}">...</td>
         </div>
+        <div>
+            <td>Wybierz pracownika:</td>
+            <td>
+<!--                <select th:field="*{userId}">-->
+                    <select>
+                    <option value=""> -- </option>
+                    <option th:each="user : ${users}"
+                            th:value="${user.userName}"
+                            th:utext="${user.userName}"/>
+                </select>
+
+            </td>
+        </div>
         <input th:field="*{id}" type="number" hidden>
         <a th:href="@{/zgloszenia/lista}"><input class="uk-button uk-button-danger" type="button" value="Zamknij"></a>
+        <!--        <a th:href="@{/email1}"><input class="uk-button uk-button-danger" type="button" value="Wyślij potwierdzenie"></a>-->
+        <!--        <input type="submit" class="uk-button uk-button-primary" value="Zapisz">-->
     </form>
 
 </div>
