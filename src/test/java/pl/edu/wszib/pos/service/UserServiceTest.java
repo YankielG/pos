@@ -3,6 +3,7 @@ package pl.edu.wszib.pos.service;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import pl.edu.wszib.pos.model.User;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -30,5 +31,10 @@ class UserServiceTest {
 
     @Test
     void delete() {
+    }
+
+    @Test
+    void getUsers() {
+
     }
 }
