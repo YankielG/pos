@@ -1,20 +1,20 @@
 package pl.edu.wszib.pos.controller;
 
-import org.bouncycastle.math.raw.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import pl.edu.wszib.pos.model.Category;
-import pl.edu.wszib.pos.model.History;
-import pl.edu.wszib.pos.model.User;
-import pl.edu.wszib.pos.model.Zgloszenie;
+import pl.edu.wszib.pos.model.*;
 import pl.edu.wszib.pos.repository.CategoryRepository;
 import pl.edu.wszib.pos.repository.HistoryRepository;
+import pl.edu.wszib.pos.repository.UserRepository;
 import pl.edu.wszib.pos.repository.ZgloszenieRepository;
 import pl.edu.wszib.pos.service.RoleService;
 import pl.edu.wszib.pos.service.UserService;
@@ -30,6 +30,8 @@ public class AppController {
 
     @Autowired
     private ZgloszenieRepository repo;
+    @Autowired
+    private UserRepository userRepository;
 
     @GetMapping("/zgloszenia/lista")
     public ModelMap listaZgloszen(@PageableDefault(size = 5)Pageable pageable, @RequestParam(name = "id", required = false) Long id, Model model){
@@ -56,6 +58,8 @@ public class AppController {
     private HistoryRepository historyRepository;
 //    private Long zgloszenieId;
 //    private Zgloszenie zgloszenie;
+
+
     @RequestMapping("/glowna")
     public String viewHomePage(Model model) {
         return "glowna";
@@ -68,7 +72,8 @@ public class AppController {
     }
 
     @GetMapping("/zgloszenia/add")
-    public ModelMap addZgloszenie(Zgloszenie zgloszenie){
+    public ModelMap addZgloszenie(Zgloszenie zgloszenie)
+    {
         return new ModelMap("zgloszenie", zgloszenie);
     }
 
@@ -142,6 +147,7 @@ public class AppController {
         historyRepository.save(history);
         return "redirect:zgloszenia/lista";
     }
+
 
 //    @GetMapping("admin/categories")
 //    public String viewsCategories(Long id, Model model) {

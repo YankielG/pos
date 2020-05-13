@@ -43,8 +43,8 @@
             <label>Opis zamknięcia usterki/zgłoszenia</label>
             <textarea th:field="*{endDescription}" class="uk-textarea" rows="5"></textarea>
         </div>
-        <input th:field="*{id}" type="number">
-        <input th:field="*{cData}" type="text">
+        <input th:field="*{id}" type="number" hidden>
+        <input th:field="*{cData}" type="text" hidden>
         <a th:href="@{/static}"><input class="uk-button uk-button-danger" type="button" value="Anuluj"></a>
         <input type="submit" class="uk-button uk-button-primary" value="Zapisz">
     </form>

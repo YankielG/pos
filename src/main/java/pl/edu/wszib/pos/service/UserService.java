@@ -21,7 +21,7 @@ public class UserService {
 
     private UserRepository userRepository;
     private RoleRepository roleRepository;
-    private static final List<User> users = new ArrayList<User>();
+    private List<User> users = new ArrayList<User>();
     //private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 //    @Autowired
