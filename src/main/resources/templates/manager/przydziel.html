@@ -36,12 +36,10 @@
         <div>
             <td>Wybierz pracownika:</td>
             <td>
-<!--                <select th:field="*{userId}">-->
-                    <select>
-                    <option value=""> -- </option>
-                    <option th:each="user : ${users}"
-                            th:value="${user.userName}"
-                            th:utext="${user.userName}"/>
+<!--                <select th:field="*{selected_user}">-->
+                <select>
+                    <option th:each="user : ${users}" th:value="${user}" th:text="${user.name}">
+                    </option>
                 </select>
 
             </td>

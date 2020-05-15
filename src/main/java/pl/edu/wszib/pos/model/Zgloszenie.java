@@ -44,13 +44,14 @@ public class Zgloszenie {
     //czy zakończono
     @Column(columnDefinition = "boolean default false")
     private boolean is_end;
+    private String selectedUser;
 
 //    //komu przydzielono
 ////    private int user_id;
     @OneToMany(targetEntity = History.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<History> histories;
 
-//    @OneToMany(mappedBy = "users", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+//    @OneToMany(targetEntity = User.class, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 //    private List<User> users;
 
     public Long getId() {

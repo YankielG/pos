@@ -12,14 +12,13 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import pl.edu.wszib.pos.model.*;
-import pl.edu.wszib.pos.repository.CategoryRepository;
-import pl.edu.wszib.pos.repository.HistoryRepository;
-import pl.edu.wszib.pos.repository.UserRepository;
-import pl.edu.wszib.pos.repository.ZgloszenieRepository;
+import pl.edu.wszib.pos.repository.*;
 import pl.edu.wszib.pos.service.RoleService;
 import pl.edu.wszib.pos.service.UserService;
 import pl.edu.wszib.pos.service.impl.ZgloszenieServiceImpl;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -49,9 +48,8 @@ public class AppController {
     private UserService userService;
 //    @Autowired
 //    private HistoryService historyService;
-//    @Autowired
+    @Autowired
     private ZgloszenieServiceImpl zgloszenieService;
-
     @Autowired
     private CategoryRepository categoryRepository;
     @Autowired
@@ -121,10 +119,10 @@ public class AppController {
 
     @GetMapping("/manager/przydziel")
     public String przydziel(@RequestParam(value = "id", required = true)Long id, Zgloszenie zgloszenie, Model model) {
+      model.addAttribute("zgloszenie", zgloszenie);
       List<User> users = userService.getUsers();
       model.addAttribute("users", users);
-      model.addAttribute("zgloszenie", zgloszenie);
-      return "manager/przydziel";
+        return "manager/przydziel";
     }
 
     @GetMapping("/zgloszenia/zamknij")
