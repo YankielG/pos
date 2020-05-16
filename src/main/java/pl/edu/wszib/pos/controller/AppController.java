@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import pl.edu.wszib.pos.model.*;
 import pl.edu.wszib.pos.repository.*;
+import pl.edu.wszib.pos.service.MailService;
 import pl.edu.wszib.pos.service.RoleService;
 import pl.edu.wszib.pos.service.UserService;
+import pl.edu.wszib.pos.service.impl.CategoryServiceImpl;
 import pl.edu.wszib.pos.service.impl.ZgloszenieServiceImpl;
 
 import java.util.ArrayList;
@@ -54,8 +56,14 @@ public class AppController {
     private CategoryRepository categoryRepository;
     @Autowired
     private HistoryRepository historyRepository;
+
+    @Autowired
+    private CategoryServiceImpl category;
+
+
 //    private Long zgloszenieId;
 //    private Zgloszenie zgloszenie;
+    private MailService mailService;
 
 
     @RequestMapping("/glowna")
@@ -64,15 +72,25 @@ public class AppController {
     }
 //
 
+
     @GetMapping("/zgloszenia/form")
     public ModelMap edycjaZgloszenia(@RequestParam(value = "id",required = false)Zgloszenie zgloszenie){
         return new ModelMap("zgloszenie", zgloszenie);
     }
 
-    @GetMapping("/zgloszenia/add")
-    public ModelMap addZgloszenie(Zgloszenie zgloszenie)
-    {
-        return new ModelMap("zgloszenie", zgloszenie);
+//    @GetMapping("/zgloszenia/add")
+//    public ModelMap addZgloszenie(Zgloszenie zgloszenie, Category category)
+//    {
+//        List<Category> categories = category.
+//        return new ModelMap("zgloszenie", zgloszenie);
+//    }
+
+    @GetMapping("zgloszenia/add")
+    public String addZgloszenie(Zgloszenie zgloszenie, Model model) {
+        List<Category> categories = category.getAllCategories();
+        model.addAttribute("zgloszenie", zgloszenie);
+        model.addAttribute("categories", categories);
+        return "zgloszenia/add";
     }
 
 
@@ -104,6 +122,15 @@ public class AppController {
         historyRepository.save(history);
         return "redirect:zgloszenia/lista";
     }
+
+    @RequestMapping(value = "/sendemail", method = RequestMethod.GET)
+    public String sendEmail() {
+
+                    mailService.sendSimpleEmail("Odbiorca <skazada@poczta.fm>", "Test e-mail", "Testing");
+
+        return "redirect:zgloszenia/lista";
+    }
+
     @GetMapping("/zgloszenia/details")
     public ModelMap details(@RequestParam(value = "id",required = false)Zgloszenie zgloszenie){
         return new ModelMap("zgloszenie", zgloszenie);
@@ -148,8 +175,9 @@ public class AppController {
 
 
 //    @GetMapping("admin/categories")
-//    public String viewsCategories(Long id, Model model) {
-//        List<Category> categories = categoryRepository.findAllByName(String);
+//    public String viewsCategories(Long id, Category category, Model model) {
+//        id = category.getId();
+//        List<Category> categories = categoryRepository.findAllById(id);
 //        model.addAttribute("categories", categories);
 //        return "admin/categories";
 //    }
@@ -165,6 +193,8 @@ public class AppController {
         categoryRepository.save(category);
         return "redirect:admin/categories";
     }
+
+
 
 //    @GetMapping("/zgloszenia/{id}/history")
 //    public String history(@PathVariable("id") Long id, Zgloszenie zgloszenie, History history, Model model) {

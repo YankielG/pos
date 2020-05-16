@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org" th:replace="~{fragments/layout::layout(~{::.container})}">
+<html xmlns:th="https://www.thymeleaf.org" th:replace="~{zgloszenia/fragments/layout::layout(~{::.container})}">
 <head>
     <meta charset="UTF-8">
 <body>
@@ -19,17 +19,18 @@
         </div>
         <div class="uk-button uk-form-controls">
             <label>Typ zgłoszenia</label>
-            <!--            <input th:field="*{type}" type="text" class="uk-input">-->
-            <select th:field="*{type}" class="uk-input" th:readonly="readonly">
-                <option th:value="'Komputer stacjonarny'">Komputer stacjonarny</option>
-                <option th:value="'Komputer przenośny'">Komputer przenośny/laptop</option>
-                <option th:value="'Drukarka atramentowa'">Drukarka atramentowa</option>
-                <option th:value="'Drukarka laserowa'">Drukarka laserowa</option>
-                <option th:value="'Monitor'">Monitor</option>
-                <option th:value="'Oprogramowanie'">Oprogramowanie</option>
-                <option th:value="'Problemy sieciowe'">Problemy sieciowe</option>
-                <option th:value="'Inne'">Inne - niewymienione powyżej</option>
-            </select>
+<!--            &lt;!&ndash;            <input th:field="*{type}" type="text" class="uk-input">&ndash;&gt;-->
+<!--            <select th:field="*{type}" class="uk-input" th:readonly="readonly">-->
+<!--                <option th:value="'Komputer stacjonarny'">Komputer stacjonarny</option>-->
+<!--                <option th:value="'Komputer przenośny'">Komputer przenośny/laptop</option>-->
+<!--                <option th:value="'Drukarka atramentowa'">Drukarka atramentowa</option>-->
+<!--                <option th:value="'Drukarka laserowa'">Drukarka laserowa</option>-->
+<!--                <option th:value="'Monitor'">Monitor</option>-->
+<!--                <option th:value="'Oprogramowanie'">Oprogramowanie</option>-->
+<!--                <option th:value="'Problemy sieciowe'">Problemy sieciowe</option>-->
+<!--                <option th:value="'Inne'">Inne - niewymienione powyżej</option>-->
+<!--            </select>-->
+            <input th:field="*{type}" type="text" class="uk-input" readonly>
         </div>
         <div class="uk-margin">
             <label>Numer seryjny urządzenia</label>
