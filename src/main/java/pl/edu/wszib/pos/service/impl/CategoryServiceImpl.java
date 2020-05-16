@@ -3,7 +3,6 @@ package pl.edu.wszib.pos.service.impl;
 import org.springframework.stereotype.Service;
 import pl.edu.wszib.pos.exception.RecordNotFoundException;
 import pl.edu.wszib.pos.model.Category;
-import pl.edu.wszib.pos.model.Employee;
 import pl.edu.wszib.pos.repository.CategoryRepository;
 import pl.edu.wszib.pos.service.CategoryService;
 
