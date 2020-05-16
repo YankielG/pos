@@ -63,6 +63,7 @@ public class AppController {
 
 //    private Long zgloszenieId;
 //    private Zgloszenie zgloszenie;
+    @Autowired
     private MailService mailService;
 
 
@@ -77,13 +78,6 @@ public class AppController {
     public ModelMap edycjaZgloszenia(@RequestParam(value = "id",required = false)Zgloszenie zgloszenie){
         return new ModelMap("zgloszenie", zgloszenie);
     }
-
-//    @GetMapping("/zgloszenia/add")
-//    public ModelMap addZgloszenie(Zgloszenie zgloszenie, Category category)
-//    {
-//        List<Category> categories = category.
-//        return new ModelMap("zgloszenie", zgloszenie);
-//    }
 
     @GetMapping("zgloszenia/add")
     public String addZgloszenie(Zgloszenie zgloszenie, Model model) {
