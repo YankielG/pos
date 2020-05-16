@@ -1,11 +1,8 @@
 package pl.edu.wszib.pos.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -19,8 +16,7 @@ import pl.edu.wszib.pos.service.UserService;
 import pl.edu.wszib.pos.service.impl.CategoryServiceImpl;
 import pl.edu.wszib.pos.service.impl.ZgloszenieServiceImpl;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+
 import java.util.Date;
 import java.util.List;
 
@@ -33,6 +29,26 @@ public class AppController {
     private ZgloszenieRepository repo;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private RoleService roleService;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private ZgloszenieServiceImpl zgloszenieService;
+    @Autowired
+    private CategoryRepository categoryRepository;
+    @Autowired
+    private HistoryRepository historyRepository;
+    @Autowired
+    private CategoryServiceImpl category;
+    //    @Autowired
+//    private HistoryService historyService;
+
+
+//    private Long zgloszenieId;
+//    private Zgloszenie zgloszenie;
+//    @Autowired
+//    private MailService mailService;
 
     @GetMapping("/zgloszenia/lista")
     public ModelMap listaZgloszen(@PageableDefault(size = 5)Pageable pageable, @RequestParam(name = "id", required = false) Long id, Model model){
@@ -44,35 +60,10 @@ public class AppController {
         }
     }
 
-    @Autowired
-    private RoleService roleService;
-    @Autowired
-    private UserService userService;
-//    @Autowired
-//    private HistoryService historyService;
-    @Autowired
-    private ZgloszenieServiceImpl zgloszenieService;
-    @Autowired
-    private CategoryRepository categoryRepository;
-    @Autowired
-    private HistoryRepository historyRepository;
-
-    @Autowired
-    private CategoryServiceImpl category;
-
-
-//    private Long zgloszenieId;
-//    private Zgloszenie zgloszenie;
-    @Autowired
-    private MailService mailService;
-
-
     @RequestMapping("/glowna")
     public String viewHomePage(Model model) {
         return "glowna";
     }
-//
-
 
     @GetMapping("/zgloszenia/form")
     public ModelMap edycjaZgloszenia(@RequestParam(value = "id",required = false)Zgloszenie zgloszenie){
@@ -86,7 +77,6 @@ public class AppController {
         model.addAttribute("categories", categories);
         return "zgloszenia/add";
     }
-
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public String edit(@ModelAttribute("zgloszenie") Zgloszenie zgloszenie, @ModelAttribute("history") History history) {
@@ -117,13 +107,13 @@ public class AppController {
         return "redirect:zgloszenia/lista";
     }
 
-    @RequestMapping(value = "/sendemail", method = RequestMethod.GET)
-    public String sendEmail() {
-
-                    mailService.sendSimpleEmail("Odbiorca <skazada@poczta.fm>", "Test e-mail", "Testing");
-
-        return "redirect:zgloszenia/lista";
-    }
+//    @RequestMapping(value = "/sendemail", method = RequestMethod.GET)
+//    public String sendEmail() {
+//
+//                    mailService.sendSimpleEmail("Odbiorca <skazada@poczta.fm>", "Test e-mail", "Testing");
+//
+//        return "redirect:zgloszenia/lista";
+//    }
 
     @GetMapping("/zgloszenia/details")
     public ModelMap details(@RequestParam(value = "id",required = false)Zgloszenie zgloszenie){

@@ -25,11 +25,14 @@
                 <td th:text="${zgloszenie.description}"></td>
                 <td style="width:350px">
                     <a th:href="@{/zgloszenia/history/(id=${zgloszenie.id})}"><input class="uk-button uk-button-primary" value="Historia" type="button"> </a>
-                    <a th:href="@{/zgloszenia/form/(id=${zgloszenie.id})}"><input class="uk-button uk-button-primary" value="Edytuj" type="button"> </a>
+                    <a th:href="@{/zgloszenia/form/(id=${zgloszenie.id})}"><input class="uk-button uk-button-primary"  value="Edytuj" type="button"> </a>
                     <a th:href="@{/zgloszenia/details/(id=${zgloszenie.id})}"><input class="uk-button uk-button-primary" value="Szczegóły" type="button"> </a>
                     <a th:href="@{/zgloszenia/zamknij/(id=${zgloszenie.id})}"><input class="uk-button uk-button-primary" value="Zakończ" type="button"> </a>
 
                     <a th:href="@{/manager/przydziel/(id=${zgloszenie.id})}"><input class="uk-button uk-button-primary" value="Przydziel" type="button"> </a>
+
+
+
                     <!--
     <a th:href="@{/admin/usun/(id=${zgloszenie.id})}"><input class="uk-button uk-button-danger" value="Usuń" type="button"> </a>-->
                 </td>
