@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<nav th:fragment="navbar" class="uk-navbar-container uk-section-xsmall" uk-navbar>
+    <div class="uk-navbar-center" >
+        <a th:href="@{/}" class="uk-navbar-item uk-log" style="color: green"><b>Program Obsługi Serwisu</b></a>
+        <ul class="uk-navbar-nav ">
+            <li class="uk-parent"><a th:href="@{/zgloszenia/lista}">Zgłoszenia</a></li>
+            <li class="uk-parent"><a th:href="@{/zgloszenia/add}">Nowe zgłoszenie</a></li>
+            <li class="uk-parent"><a th:href="@{/zgloszenia/archiwe}">Archiwum</a></li>
+        </ul>
+
+    </div>
+</nav>
+
+</body>
+</html>

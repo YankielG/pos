@@ -45,6 +45,8 @@ public class Zgloszenie {
     @Column(columnDefinition = "boolean default false")
     private boolean is_end;
     private String selectedUser;
+    @Column(columnDefinition = "boolean default false")
+    private boolean archive;
 
 //    //komu przydzielono
 ////    private int user_id;
@@ -148,6 +150,22 @@ public class Zgloszenie {
 
     public void setIs_end(boolean is_end) {
         this.is_end = is_end;
+    }
+
+    public String getSelectedUser() {
+        return selectedUser;
+    }
+
+    public void setSelectedUser(String selectedUser) {
+        this.selectedUser = selectedUser;
+    }
+
+    public boolean isArchive() {
+        return archive;
+    }
+
+    public void setArchive(boolean archive) {
+        this.archive = archive;
     }
 
     public List<History> getHistories() {

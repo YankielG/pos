@@ -1,5 +1,6 @@
 package pl.edu.wszib.pos.service.impl;
 
+import org.springframework.stereotype.Service;
 import pl.edu.wszib.pos.model.Employee;
 import pl.edu.wszib.pos.repository.EmployeeRepository;
 import pl.edu.wszib.pos.service.EmployeeService;
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class EmployeeServiceImpl implements EmployeeService {
 
     private final EmployeeRepository employeeRepository;
@@ -33,6 +35,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         Optional<Employee> employee = employeeRepository.findById(id);
         return employee;
     }
+
 
     @Override
     public Employee saveEmployee(Employee employee) {

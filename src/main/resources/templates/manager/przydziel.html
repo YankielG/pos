@@ -4,52 +4,56 @@
     <meta charset="UTF-8">
 <body>
 <div class="container">
-    <form style="width: 400px;margin: auto" th:object="${zgloszenie}" method="get">
+    <form style="width: 400px;margin: auto" th:object="${zgloszenie1}" method="get">
         <div class="uk-margin">
             <label>Id zgłoszenia : </label>
-            <td th:utext="${zgloszenie.id}">...</td>
+            <td th:utext="${zgloszenie1.id}">...</td>
         </div>
         <div class="uk-margin">
             <label>Dane zgłaszającego : </label>
-            <td th:utext="${zgloszenie.name}">...</td>
+            <td th:utext="${zgloszenie1.name}">...</td>
         </div>
         <div class="uk-margin">
             <label>Adres e-mail zgłaszającego : </label>
-            <td th:utext="${zgloszenie.email}">...</td>
+            <td th:utext="${zgloszenie1.email}">...</td>
         </div>
         <div class="uk-margin">
             <label>Telefon zgłaszającego : </label>
-            <td th:utext="${zgloszenie.phone}">...</td>
+            <td th:utext="${zgloszenie1.phone}">...</td>
         </div>
         <div class="uk-margin">
             <label>Typ zgłoszenia : </label>
-            <td th:utext="${zgloszenie.type}">...</td>
+            <td th:utext="${zgloszenie1.type}">...</td>
         </div>
         <div class="uk-margin">
             <label>Numer seryjny urządzenia : </label>
-            <td th:utext="${zgloszenie.serialNumber}">...</td>
+            <td th:utext="${zgloszenie1.serialNumber}">...</td>
         </div>
         <div class="uk-margin">
             <label>Opis usterki/zgłoszenia : </label>
-            <td th:utext="${zgloszenie.description}">...</td>
+            <td th:utext="${zgloszenie1.description}">...</td>
         </div>
-        <div>
-            <td>Wybierz pracownika:</td>
-            <td>
-<!--                <select th:field="*{selected_user}">-->
-                <select>
-                    <option th:each="user : ${users}" th:value="${user}" th:text="${user.name}">
-                    </option>
-                </select>
-
-            </td>
+        <div class="uk-form-controls">
+            <label>Wybierz pracownika</label>
+            <select th:field="*{type}" class="uk-input">
+                <option th:each="employee : ${employees}"
+                        th:value="${employee.name}"
+                        th:utext="${employee.name}"/>
+            </select>
         </div>
         <input th:field="*{id}" type="number" hidden>
-        <a th:href="@{/zgloszenia/lista}"><input class="uk-button uk-button-danger" type="button" value="Zamknij"></a>
-        <!--        <a th:href="@{/email1}"><input class="uk-button uk-button-danger" type="button" value="Wyślij potwierdzenie"></a>-->
-        <!--        <input type="submit" class="uk-button uk-button-primary" value="Zapisz">-->
-    </form>
-
-</div>
+        <br>
+        <div class="uk-button-group">
+            <div class="uk-inline">
+                <a th:href="@{/zgloszenia/lista}"><button class="uk-button uk-button-default" type="button" value="Zamknij"><span uk-icon="close"></span> Zamknij</a>
+            </div>
+            </div>
+        <div class="uk-button-group">
+            <div class="uk-inline">
+                <a th:href="@{/zgloszenia/saveAdd}"><button class="uk-button uk-button-danger"  type="button" value="Zamknij" ><span uk-icon="check"></span>Zapisz</a>
+            </div>
+        </div>
+        </form>
+   </div>
 </body>
 </html>

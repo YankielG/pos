@@ -14,6 +14,7 @@ import pl.edu.wszib.pos.service.MailService;
 import pl.edu.wszib.pos.service.RoleService;
 import pl.edu.wszib.pos.service.UserService;
 import pl.edu.wszib.pos.service.impl.CategoryServiceImpl;
+import pl.edu.wszib.pos.service.impl.EmployeeServiceImpl;
 import pl.edu.wszib.pos.service.impl.ZgloszenieServiceImpl;
 
 
@@ -41,6 +42,8 @@ public class AppController {
     private HistoryRepository historyRepository;
     @Autowired
     private CategoryServiceImpl category;
+    @Autowired
+    private EmployeeServiceImpl employeeService;
     //    @Autowired
 //    private HistoryService historyService;
 
@@ -130,9 +133,11 @@ public class AppController {
 
     @GetMapping("/manager/przydziel")
     public String przydziel(@RequestParam(value = "id", required = true)Long id, Zgloszenie zgloszenie, Model model) {
-      model.addAttribute("zgloszenie", zgloszenie);
-      List<User> users = userService.getUsers();
-      model.addAttribute("users", users);
+        id=zgloszenie.getId();
+        Zgloszenie zgloszenie1 = zgloszenieService.get(id);
+      model.addAttribute("zgloszenie1", zgloszenie1);
+      List<Employee> employees = employeeService.getAllEmployee();
+      model.addAttribute("employees", employees);
         return "manager/przydziel";
     }
 
