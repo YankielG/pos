@@ -50,8 +50,8 @@ public class AppController {
 
 //    private Long zgloszenieId;
 //    private Zgloszenie zgloszenie;
-//    @Autowired
-//    private MailService mailService;
+    @Autowired
+    private MailService mailService;
 
     @GetMapping("/zgloszenia/lista")
     public ModelMap listaZgloszen(@PageableDefault(size = 5)Pageable pageable, @RequestParam(name = "id", required = false) Long id, Model model){
@@ -110,13 +110,11 @@ public class AppController {
         return "redirect:zgloszenia/lista";
     }
 
-//    @RequestMapping(value = "/sendemail", method = RequestMethod.GET)
-//    public String sendEmail() {
-//
-//                    mailService.sendSimpleEmail("Odbiorca <skazada@poczta.fm>", "Test e-mail", "Testing");
-//
-//        return "redirect:zgloszenia/lista";
-//    }
+    @RequestMapping(value = "/sendemail", method = RequestMethod.GET)
+    public String sendEmail() {
+                    mailService.sendSimpleEmail("Odbiorca <skazada@poczta.fm>", "Test e-mail", "Testing");
+        return "redirect:zgloszenia/lista";
+    }
 
     @GetMapping("/zgloszenia/details")
     public ModelMap details(@RequestParam(value = "id",required = false)Zgloszenie zgloszenie){

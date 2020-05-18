@@ -9,7 +9,7 @@ import org.thymeleaf.dialect.springdata.SpringDataDialect;
 
 
 @PropertySource("classpath:db.properties")
-@PropertySource("classpath:mail.properties")
+//@PropertySource("classpath:mail.properties")
 
 @SpringBootApplication
 
