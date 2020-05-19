@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!--<html xmlns:th="https://www.thymeleaf.org" th:replace="~{fragments/layout::layout(~{::.container})}">-->
+<<html xmlns:th="https://www.thymeleaf.org" th:replace="~{fragments/layout::layout(~{::.container})}">
 <html xmlns:th="https://www.thymeleaf.org">
 <body>
 <div class="container">
@@ -16,7 +16,6 @@
         <tr th:each="category : ${categories}">
             <td th:text="${category.id}"></td>
             <td th:text="${category.name}"></td>
-<!--            <td th:text="${history.hUser}"></td>-->
         </tr>
         </tbody>
     </table>

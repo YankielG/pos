@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import pl.edu.wszib.pos.model.*;
 import pl.edu.wszib.pos.repository.*;
+import pl.edu.wszib.pos.service.HistoryService;
 import pl.edu.wszib.pos.service.MailService;
 import pl.edu.wszib.pos.service.RoleService;
 import pl.edu.wszib.pos.service.UserService;
@@ -44,8 +45,8 @@ public class AppController {
     private CategoryServiceImpl category;
     @Autowired
     private EmployeeServiceImpl employeeService;
-    //    @Autowired
-//    private HistoryService historyService;
+        @Autowired
+    private HistoryService historyService;
 
 
 //    private Long zgloszenieId;
@@ -55,12 +56,9 @@ public class AppController {
 
     @GetMapping("/zgloszenia/lista")
     public ModelMap listaZgloszen(@PageableDefault(size = 5)Pageable pageable, @RequestParam(name = "id", required = false) Long id, Model model){
-        if (id != null){
-            model.addAttribute("id", id);
+
             return new ModelMap().addAttribute("listaZgloszen", repo.findAllByIdAndDelIsFalse(id, pageable));
-        }else {
-            return new ModelMap().addAttribute("listaZgloszen", repo.findAll(pageable));
-        }
+
     }
 
     @RequestMapping("/glowna")
@@ -100,7 +98,7 @@ public class AppController {
     public String saveAdd(@ModelAttribute("zgloszenie") Zgloszenie zgloszenie, @ModelAttribute("history") History history) {
         zgloszenie.setcData(new Date());
         //zgloszenie.setStatus("1");
-        zgloszenie.setDel(true);
+        zgloszenie.setDel(false);
         repo.save(zgloszenie);
         history.setzId(zgloszenie.getId());
         history.sethData(new Date());
@@ -160,14 +158,17 @@ public class AppController {
         return "redirect:zgloszenia/lista";
     }
 
+    @GetMapping("/zgloszenia/archiwe")
+    public ModelMap listaZgloszenArchiwalnych(@PageableDefault(size = 5)Pageable pageable, @RequestParam(name = "id", required = false) Long id, Model model){
+          return new ModelMap().addAttribute("listaZgloszen", repo.findAll(pageable));
+        }
 
-//    @GetMapping("admin/categories")
-//    public String viewsCategories(Long id, Category category, Model model) {
-//        id = category.getId();
-//        List<Category> categories = categoryRepository.findAllById(id);
-//        model.addAttribute("categories", categories);
-//        return "admin/categories";
-//    }
+    @GetMapping("admin/categories")
+    public String viewsCategories(Category category, Model model) {
+        List<Category> categories = (List<Category>) categoryRepository.findAll();
+        model.addAttribute("categories", categories);
+        return "admin/categories";
+    }
 
     @GetMapping("/admin/add_category")
     public ModelMap addCategory(Category category)
@@ -182,29 +183,10 @@ public class AppController {
     }
 
 
-
-//    @GetMapping("/zgloszenia/{id}/history")
-//    public String history(@PathVariable("id") Long id, Zgloszenie zgloszenie, History history, Model model) {
-//        id = zgloszenie.getId();
-//        List<History> histories = historyRepository.findByzId(id);
-//        model.addAttribute("histories", histories);
-//        return "zgloszenia/history";
-
-    //}
-
-//    @GetMapping("/zgloszenia/{id}/history")
-//    public String history(@PathVariable("id") Long ZgloszenieId, Model model) {
-//        List<History> histories = historyRepository.findByzId(ZgloszenieId);
-//        model.addAttribute("histories", histories);
-//        return "zgloszenia/history";
-//
-//    }
-
-
-//    @GetMapping("zgloszenia/del")
-//    public ModelMap usunZgłoszenie(@RequestParam(value = "id")Zgloszenie zgloszenie) {
-//        return new ModelMap("zgloszenie", zgloszenie);
-//    }
+    @GetMapping("admin/usun")
+    public ModelMap usunZgłoszenie(@RequestParam(value = "id")Zgloszenie zgloszenie) {
+        return new ModelMap("zgloszenie", zgloszenie);
+    }
 //
 //@RequestMapping(value = "del", method = RequestMethod.POST)
 //public String delete(@RequestParam(value = "id") Zgloszenie zgloszenie, History history, Model model) {
@@ -229,14 +211,18 @@ public class AppController {
 //        return "redirect:zgloszenia/lista";
 //    }
 //
-//    @RequestMapping(value = "/delete", method = RequestMethod.POST)
-//    public String delZgloszenie(@ModelAttribute("zgloszenie") Zgloszenie zgloszenie, @ModelAttribute("historia") History history) {
-//        zgloszenie.setDel(false);
-//        repo.save(zgloszenie);
-////        History history = new History("", new Date(), "Usunięto z bazy", "test", zgloszenie.getId());
-////        historyService.save(history);
-//        return "redirect:/";
-//    }
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public String delZgloszenie(@ModelAttribute("zgloszenie") Zgloszenie zgloszenie, @ModelAttribute("history") History history) {
+        zgloszenie.setDel(true);
+        repo.save(zgloszenie);
+        history = new History();
+        history.setzId(zgloszenie.getId());
+        history.sethData(new Date());
+        history.sethDescription("Usunięto z bazy");
+        history.sethUser("usuwanie");
+        historyRepository.save(history);
+        return "redirect:zgloszenia/lista";
+    }
 
     @GetMapping(value={"/", "/login"})
     public ModelAndView login(){

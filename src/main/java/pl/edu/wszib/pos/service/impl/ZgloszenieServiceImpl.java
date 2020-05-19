@@ -22,8 +22,9 @@ public class ZgloszenieServiceImpl implements ZgloszenieService {
         return zgloszenieRepository.findAll(pageable);
     }
 
-
-
+//    public Page<Zgloszenie> finaAllPageableByIdAndDelIsFalse(Long id, Pageable pageable) {
+//        return zgloszenieRepository.findAllByIdAndDelIsFalse(id, pageable);
+//    }
 
     public void save(Zgloszenie zgloszenie) {
         zgloszenieRepository.save(zgloszenie);

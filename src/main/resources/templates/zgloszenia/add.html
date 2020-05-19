@@ -36,9 +36,16 @@
             <label>Opis usterki/zgłoszenia</label>
             <textarea th:field="*{description}" class="uk-textarea" rows="5"></textarea>
         </div>
-        <input th:field="*{id}" type="number" hidden>
-        <a th:href="@{/static}"><input class="uk-button uk-button-danger" type="button" value="Anuluj"></a>
-        <input type="submit" class="uk-button uk-button-primary" value="Zapisz">
+<!--        <input th:field="*{id}" type="number" hidden>-->
+<!--        <a th:href="@{/static}"><input class="uk-button uk-button-danger" type="button" value="Anuluj"></a>-->
+<!--        <input type="submit" class="uk-button uk-button-primary" value="Zapisz">-->
+        <div class="uk-button-group">
+            <a href="/zgloszenia/lista" class="uk-button-primary"><i class="uk-button" uk-icon="close">Anuluj</i></a>
+        </div>
+        <div class="uk-button-group">
+            <input type="submit" class="uk-button uk-button-primary" value="Zapisz">
+        </div>
+
     </form>
 
 </div>
