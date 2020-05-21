@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -7,13 +7,37 @@
 <body>
 
 <nav th:fragment="navbar" class="uk-navbar-container uk-section-xsmall" uk-navbar>
-    <div class="uk-navbar-center" >
+    <div class="uk-navbar-center">
         <a th:href="@{/}" class="uk-navbar-item uk-log" style="color: green"><b>Program Obsługi Serwisu</b></a>
-        <ul class="uk-navbar-nav ">
+        <ul class="uk-navbar-nav uk-dropdown-nav">
             <li class="uk-parent"><a th:href="@{/zgloszenia/lista}">Zgłoszenia</a></li>
             <li class="uk-parent"><a th:href="@{/zgloszenia/add}">Nowe zgłoszenie</a></li>
             <li class="uk-parent"><a th:href="@{/zgloszenia/archiwe}">Archiwum</a></li>
+            <li sec:authorize="hasAnyAuthority('MANAGER','ADMIN')">
+            <a href="#">Manager</a>
+            <div class="uk-navbar-dropdown">
+                <ul class="uk-nav uk-navbar-dropdown-nav">
+                    <li><a th:href="@{/manager/employees}">Lista pracowników</a></li>
+                    <li><a th:href="@{/manager/add_employee}">Dodaj pracownika</a></li>
+                </ul>
+            </div>
+        </li>
+            <li sec:authorize="hasAnyAuthority('ADMIN')">
+                <a href="#">Administrator</a>
+                <div class="uk-navbar-dropdown">
+                    <ul class="uk-nav uk-navbar-dropdown-nav">
+                        <li><a th:href="@{/admin/add_user}">Dodaj użytkownika</a></li>
+                        <li><a th:href="@{/admin/categories}">Lista kategorii</a></li>
+                        <li><a th:href="@{/admin/add_category}">Dodaj kategorię</a></li>
+                    </ul>
+                </div>
+            </li>
         </ul>
+    </div>
+    <div class="uk-navbar-right">
+            <ul class="uk-navbar-nav">
+            <li class="uk-parent"><a th:href="@{/}">Logout</a></li>
+            </ul>
 
     </div>
 </nav>

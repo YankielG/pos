@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sd="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.w3.org/1999/xhtml"
+      th:replace="~{fragments/layout::layout(~{::.container})}">
+<head>
+    <meta charset="UTF-8">
+
+<body>
+<div class="container">
+<!--    <form style="width: 400px;margin: auto" th:object="${manager}" th:action="@{/saveEmployee}" method="post">-->
+<!--        <div class="uk-margin">-->
+<!--            <label>Imie i nazwisko pracownika</label>-->
+<!--            <input th:field="*{name}" type="text" class="uk-input">-->
+<!--        </div>-->
+    <label>Imie i nazwisko</label>
+    <input th:field=*{name}" type="text">
+
+<!--        <div class="uk-margin">-->
+<!--            <label>Dane pracownika (Imię i nazwisko)</label>-->
+<!--            <input th:field="*{name}" type="text" class="uk-input">-->
+<!--        </div>-->
+<!--        <div class="uk-margin">-->
+<!--            <label>Adres e-mail pracownika</label>-->
+<!--            <input th:field="*{email}" type="email" class="uk-input">-->
+<!--        </div>-->
+<!--        <input th:field="*{id}" type="number" hidden>-->
+<!--        &lt;!&ndash;        <a th:href="@{/static}"><input class="uk-button uk-button-danger" type="button" value="Anuluj"></a>&ndash;&gt;-->
+<!--        &lt;!&ndash;        <input type="submit" class="uk-button uk-button-primary" value="Zapisz">&ndash;&gt;-->
+<!--        <div class="uk-button-group">-->
+<!--            <a href="/manager/employees" class="uk-button-primary"><i class="uk-button" uk-icon="close">Anuluj</i></a>-->
+<!--        </div>-->
+<!--        <div class="uk-button-group">-->
+<!--            <input type="submit" class="uk-button uk-button-primary" value="Zapisz">-->
+<!--        </div>-->
+<h1>Hello</h1>
+    </form>
+
+</div>
+</body>
+</html>

@@ -1,5 +1,7 @@
 package pl.edu.wszib.pos.service.impl;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import pl.edu.wszib.pos.model.Employee;
 import pl.edu.wszib.pos.repository.EmployeeRepository;
@@ -40,5 +42,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Employee saveEmployee(Employee employee) {
         return null;
+    }
+
+    @Override
+    public Page<Employee> findAllPageable(Pageable pageable) {
+        return employeeRepository.findAll(pageable);
     }
 }

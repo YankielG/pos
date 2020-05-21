@@ -3,9 +3,12 @@ package pl.edu.wszib.pos.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import pl.edu.wszib.pos.model.*;
@@ -19,6 +22,7 @@ import pl.edu.wszib.pos.service.impl.EmployeeServiceImpl;
 import pl.edu.wszib.pos.service.impl.ZgloszenieServiceImpl;
 
 
+import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
 
@@ -47,6 +51,8 @@ public class AppController {
     private EmployeeServiceImpl employeeService;
         @Autowired
     private HistoryService historyService;
+        @Autowired
+        private EmployeeRepository employeeRepository;
 
 
 //    private Long zgloszenieId;
@@ -147,6 +153,7 @@ public class AppController {
         //zgloszenie.setDel(zgloszenie.getDel);
         //zgloszenie
         //zgloszenie.setDel(true);
+        zgloszenie.setArchive(true);
         zgloszenie.setIs_end(true);
         repo.save(zgloszenie);
         history = new History();
@@ -155,6 +162,10 @@ public class AppController {
         history.sethDescription("zakończenie");
         history.sethUser("zakończenie");
         historyRepository.save(history);
+        String tresc = "Serwis komputerowy uprzejmie informuje o zamknięciu zgłoszenia nr : " + zgloszenie.getId() + "dotyczącego : " +zgloszenie.getDescription() + "."+
+                "Naprawa obejmowała : " + zgloszenie.getEndDescription()+"." +
+                "Po sprzęt można się zgłosić w dni robocze w godz: 7:30 - 15:30.";
+        mailService.sendSimpleEmail("Odbiorca <skazada@poczta.fm>", "Zamknięcie zgłoszenia", tresc);
         return "redirect:zgloszenia/lista";
     }
 
@@ -186,6 +197,25 @@ public class AppController {
     @GetMapping("admin/usun")
     public ModelMap usunZgłoszenie(@RequestParam(value = "id")Zgloszenie zgloszenie) {
         return new ModelMap("zgloszenie", zgloszenie);
+    }
+    @GetMapping("/manager/employees")
+    public ModelMap listaPracowników(@PageableDefault(size = 5)Pageable pageable, @RequestParam(name = "id", required = false) Long id, Model model){
+
+        return new ModelMap().addAttribute("employees", employeeRepository.findAllById(id, pageable));
+
+    }
+
+    @GetMapping("/manager/add_employee")
+    public String addEmployee(Employee employee, Model model) {
+        model.addAttribute("employee", employee);
+        return "manager/add_employee";
+    }
+
+    @RequestMapping(value = "/saveEmployee", method = RequestMethod.POST)
+    public String saveEmployee(@ModelAttribute("employee") Employee employee) {
+        employee.setIs_active(true);
+        employeeRepository.save(employee);
+        return "redirect:manager/employee";
     }
 //
 //@RequestMapping(value = "del", method = RequestMethod.POST)
@@ -303,6 +333,50 @@ public class AppController {
 //    public String Zgloszenia(Zgloszenie zgloszenie, Model model) {
 //        zgloszenieService.get()
 //    }
+
+
+    @RequestMapping(value="/registration", method = RequestMethod.GET)
+    public ModelAndView registration(){
+        ModelAndView modelAndView = new ModelAndView();
+        User user = new User();
+        modelAndView.addObject("user", user);
+        modelAndView.setViewName("registration");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/registration", method = RequestMethod.POST)
+    public ModelAndView createNewUser(@Valid User user, BindingResult bindingResult) {
+        ModelAndView modelAndView = new ModelAndView();
+        User userExists = userService.findUserByUserName(user.getUserName());
+        if (userExists != null) {
+            bindingResult
+                    .rejectValue("userName", "error.user",
+                            "There is already a user registered with the user name provided");
+        }
+        if (bindingResult.hasErrors()) {
+            modelAndView.setViewName("registration");
+        } else {
+            userService.saveUser(user);
+            modelAndView.addObject("successMessage", "User has been registered successfully");
+            modelAndView.addObject("user", new User());
+            modelAndView.setViewName("registration");
+
+        }
+        return modelAndView;
+    }
+
+    @RequestMapping(value="/admin/home", method = RequestMethod.GET)
+    public ModelAndView home(){
+        ModelAndView modelAndView = new ModelAndView();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByUserName(auth.getName());
+        modelAndView.addObject("userName", "Welcome " + user.getUserName() + "/" + user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
+        modelAndView.addObject("adminMessage","Content Available Only for Users with Admin Role");
+        modelAndView.setViewName("admin/home");
+        return modelAndView;
+    }
+
+
 
 
 
