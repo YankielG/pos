@@ -30,6 +30,7 @@ public class ZgloszenieServiceImpl implements ZgloszenieService {
         zgloszenieRepository.save(zgloszenie);
     }
 
+
     public Zgloszenie get(Long id) {
         return zgloszenieRepository.findById(id).get();
     }

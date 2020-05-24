@@ -5,11 +5,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.PropertySources;
 import org.thymeleaf.dialect.springdata.SpringDataDialect;
 
-
-@PropertySource("classpath:db.properties")
-@PropertySource("classpath:mail.properties")
+@PropertySources( {@PropertySource("classpath:db.properties"),@PropertySource("classpath:mail.properties") })
+//@PropertySource("classpath:db.properties")
+//@PropertySource("classpath:mail.properties")
 
 @SpringBootApplication
 

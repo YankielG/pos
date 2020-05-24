@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @Repository
 public interface ZgloszenieRepository extends PagingAndSortingRepository<Zgloszenie, Long>, CrudRepository<Zgloszenie, Long> {
- @Query("select z from Zgloszenie z where z.del=false")
+ @Query("select z from Zgloszenie z where z.del=false and z.is_end=false")
  public Page<Zgloszenie> findAllByIdAndDelIsFalse(Long id, Pageable pageable);
  //public Page<Zgloszenie> findAllByDelIsFalse(Pageable pageable);
 

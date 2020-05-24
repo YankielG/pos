@@ -4,56 +4,45 @@
     <meta charset="UTF-8">
 <body>
 <div class="container">
-    <form style="width: 400px;margin: auto" th:object="${zgloszenie1}" method="get">
+    <form style="width: 400px;margin: auto" th:object="${zgloszenie}" th:action="@{/saveManage}" method="post">
         <div class="uk-margin">
-            <label>Id zgłoszenia : </label>
-            <td th:utext="${zgloszenie1.id}">...</td>
+            <label>Dane zgłaszającego (Imię i nazwisko)</label>
+            <input th:field="*{name}" type="text" class="uk-input">
         </div>
         <div class="uk-margin">
-            <label>Dane zgłaszającego : </label>
-            <td th:utext="${zgloszenie1.name}">...</td>
+            <label>Adres e-mail zgłaszającego</label>
+            <input th:field="*{email}" type="text" class="uk-input">
         </div>
         <div class="uk-margin">
-            <label>Adres e-mail zgłaszającego : </label>
-            <td th:utext="${zgloszenie1.email}">...</td>
+            <label>Telefon zgłaszającego</label>
+            <input th:field="*{phone}" type="text" class="uk-input">
+        </div>
+        <div class="uk-button uk-form-controls">
+            <label>Typ zgłoszenia</label>
+            <input th:field="*{type}" type="text" class="uk-input">
         </div>
         <div class="uk-margin">
-            <label>Telefon zgłaszającego : </label>
-            <td th:utext="${zgloszenie1.phone}">...</td>
+            <label>Numer seryjny urządzenia</label>
+            <input th:field="*{serialNumber}" type="text" class="uk-input">
         </div>
         <div class="uk-margin">
-            <label>Typ zgłoszenia : </label>
-            <td th:utext="${zgloszenie1.type}">...</td>
-        </div>
-        <div class="uk-margin">
-            <label>Numer seryjny urządzenia : </label>
-            <td th:utext="${zgloszenie1.serialNumber}">...</td>
-        </div>
-        <div class="uk-margin">
-            <label>Opis usterki/zgłoszenia : </label>
-            <td th:utext="${zgloszenie1.description}">...</td>
+            <label>Opis usterki/zgłoszenia</label>
+            <textarea th:field="*{description}" class="uk-textarea" rows="5"></textarea>
         </div>
         <div class="uk-form-controls">
-            <label>Wybierz pracownika</label>
-            <select th:field="*{type}" class="uk-input">
+                        <label>Wybierz pracownika</label>
+            <select th:field="*{selectedUser}" class="uk-input">
                 <option th:each="employee : ${employees}"
-                        th:value="${employee.name}"
-                        th:utext="${employee.name}"/>
+                    th:value="${employee.name}"
+                    th:utext="${employee.name}"/>
             </select>
         </div>
         <input th:field="*{id}" type="number" hidden>
-        <br>
-        <div class="uk-button-group">
-            <div class="uk-inline">
-                <a th:href="@{/zgloszenia/lista}"><button class="uk-button uk-button-default" type="button" value="Zamknij"><span uk-icon="close"></span> Zamknij</a>
-            </div>
-            </div>
-        <div class="uk-button-group">
-            <div class="uk-inline">
-                <a th:href="@{/zgloszenia/saveAdd}"><button class="uk-button uk-button-danger"  type="button" value="Zamknij" ><span uk-icon="check"></span>Zapisz</a>
-            </div>
-        </div>
-        </form>
-   </div>
+        <input th:field="*{cData}" type="text" hidden>
+        <a th:href="@{/static}"><input class="uk-button uk-button-danger" type="button" value="Anuluj"></a>
+        <input type="submit" class="uk-button uk-button-primary" value="Zapisz">
+    </form>
+
+</div>
 </body>
 </html>

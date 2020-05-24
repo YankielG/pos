@@ -72,10 +72,19 @@ public class AppController {
         return "glowna";
     }
 
+
     @GetMapping("/zgloszenia/form")
     public ModelMap edycjaZgloszenia(@RequestParam(value = "id",required = false)Zgloszenie zgloszenie){
         return new ModelMap("zgloszenie", zgloszenie);
     }
+
+//    @GetMapping("/zgloszenia/form")
+//    public String edycjaZgloszenia(@RequestParam(value = "id",required = false)Long id, Zgloszenie zgloszenie, Model model){
+//        List<Category> categories = category.getAllCategories();
+//        model.addAttribute("zgloszenie", zgloszenie);
+//        model.addAttribute("categories", categories);
+//        return "zgloszenia/form";
+//    }
 
     @GetMapping("zgloszenia/add")
     public String addZgloszenie(Zgloszenie zgloszenie, Model model) {
@@ -90,27 +99,35 @@ public class AppController {
         //zgloszenie.setcData(zgloszenie.getcData());
         //zgloszenie.setStatus("1");
         //zgloszenie.setDel(true);
-        repo.save(zgloszenie);
+        //repo.save(zgloszenie);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByUserName(auth.getName());
+        zgloszenieService.save(zgloszenie);
         history = new History();
         history.setzId(zgloszenie.getId());
         history.sethData(new Date());
-        history.sethDescription("Edit");
-       history.sethUser("edit");
-        historyRepository.save(history);
+        history.sethDescription("Edycja zgłoszenia");
+       history.sethUser(user.getUserName());
+        //historyRepository.save(history);
+        historyService.save(history);
         return "redirect:zgloszenia/lista";
     }
 
     @RequestMapping(value = "/saveAdd", method = RequestMethod.POST)
     public String saveAdd(@ModelAttribute("zgloszenie") Zgloszenie zgloszenie, @ModelAttribute("history") History history) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByUserName(auth.getName());
         zgloszenie.setcData(new Date());
         //zgloszenie.setStatus("1");
         zgloszenie.setDel(false);
-        repo.save(zgloszenie);
+        //repo.save(zgloszenie);
+        zgloszenieService.save(zgloszenie);
         history.setzId(zgloszenie.getId());
         history.sethData(new Date());
-        history.sethDescription("Test");
-        history.sethUser("test");
-        historyRepository.save(history);
+        history.sethDescription("Przyjęcie zgłoszenia");
+        history.sethUser(user.getUserName());
+        //historyRepository.save(history);
+        historyService.save(history);
         return "redirect:zgloszenia/lista";
     }
 
@@ -134,13 +151,34 @@ public class AppController {
     }
 
     @GetMapping("/manager/przydziel")
-    public String przydziel(@RequestParam(value = "id", required = true)Long id, Zgloszenie zgloszenie, Model model) {
-        id=zgloszenie.getId();
-        Zgloszenie zgloszenie1 = zgloszenieService.get(id);
-      model.addAttribute("zgloszenie1", zgloszenie1);
-      List<Employee> employees = employeeService.getAllEmployee();
-      model.addAttribute("employees", employees);
-        return "manager/przydziel";
+    public ModelAndView przydziel(@RequestParam(value = "id",required = false)Zgloszenie zgloszenie){
+        var view = new ModelAndView();
+        view.addObject("zgloszenie", zgloszenie);
+        List<Employee> employees = employeeService.getAllEmployee();
+        view.addObject("employees", employees);
+        return view;
+    }
+
+
+
+    @RequestMapping(value = "/saveManage", method = RequestMethod.POST)
+    public String saveManage(@ModelAttribute("zgloszenie") Zgloszenie zgloszenie, @ModelAttribute("history") History history) {
+        //zgloszenie.setcData(zgloszenie.getcData());
+        //zgloszenie.setStatus("1");
+        //zgloszenie.setDel(true);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByUserName(auth.getName());
+        zgloszenie.setIs_proceed(true);
+        //repo.save(zgloszenie);
+        zgloszenieService.save(zgloszenie);
+        history = new History();
+        history.setzId(zgloszenie.getId());
+        history.sethData(new Date());
+        history.sethDescription("Dodano pracownika");
+        history.sethUser(user.getUserName());
+        //historyRepository.save(history);
+        historyService.save(history);
+        return "redirect:zgloszenia/lista";
     }
 
     @GetMapping("/zgloszenia/zamknij")
@@ -153,25 +191,30 @@ public class AppController {
         //zgloszenie.setDel(zgloszenie.getDel);
         //zgloszenie
         //zgloszenie.setDel(true);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByUserName(auth.getName());
         zgloszenie.setArchive(true);
         zgloszenie.setIs_end(true);
-        repo.save(zgloszenie);
+        //repo.save(zgloszenie);
+        zgloszenieService.save(zgloszenie);
         history = new History();
         history.setzId(zgloszenie.getId());
         history.sethData(new Date());
-        history.sethDescription("zakończenie");
-        history.sethUser("zakończenie");
-        historyRepository.save(history);
-        String tresc = "Serwis komputerowy uprzejmie informuje o zamknięciu zgłoszenia nr : " + zgloszenie.getId() + "dotyczącego : " +zgloszenie.getDescription() + "."+
+        history.sethDescription("Zakończenie zgłoszenia");
+        history.sethUser(user.getUserName());
+        //historyRepository.save(history);
+        historyService.save(history);
+        String tresc = "<span>" + "Serwis komputerowy uprzejmie informuje o zamknięciu zgłoszenia nr : " + zgloszenie.getId() + "</span>" + "dotyczącego : " +zgloszenie.getDescription() + "."+
                 "Naprawa obejmowała : " + zgloszenie.getEndDescription()+"." +
                 "Po sprzęt można się zgłosić w dni robocze w godz: 7:30 - 15:30.";
-        mailService.sendSimpleEmail("Odbiorca <skazada@poczta.fm>", "Zamknięcie zgłoszenia", tresc);
+        mailService.sendSimpleEmail(zgloszenie.getEmail(), "Zamknięcie zgłoszenia", tresc);
         return "redirect:zgloszenia/lista";
     }
 
     @GetMapping("/zgloszenia/archiwe")
     public ModelMap listaZgloszenArchiwalnych(@PageableDefault(size = 5)Pageable pageable, @RequestParam(name = "id", required = false) Long id, Model model){
-          return new ModelMap().addAttribute("listaZgloszen", repo.findAll(pageable));
+          //return new ModelMap().addAttribute("listaZgloszen", repo.findAll(pageable));
+          return new ModelMap().addAttribute("listaZgloszen", zgloszenieService.findAllPageable(pageable));
         }
 
     @GetMapping("admin/categories")
@@ -215,42 +258,21 @@ public class AppController {
     public String saveEmployee(@ModelAttribute("employee") Employee employee) {
         employee.setIs_active(true);
         employeeRepository.save(employee);
-        return "redirect:manager/employee";
+        return "redirect:manager/employees";
     }
-//
-//@RequestMapping(value = "del", method = RequestMethod.POST)
-//public String delete(@RequestParam(value = "id") Zgloszenie zgloszenie, History history, Model model) {
-//        zgloszenie.setDel(true);
-//        repo.save(zgloszenie);
-//        history.setzId(zgloszenie.getId());
-//        history.sethData(new Date());
-//        historyRepository.save(history);
-//        return "redirect: zgloszenia/lista";
-//}
 
-//    @RequestMapping(value = "/del", method = RequestMethod.POST)
-//    public String delZgloszenie(@ModelAttribute("zgloszenie") Zgloszenie zgloszenie, @ModelAttribute("history") History history) {
-//        //zgloszenie.setStatus("1");
-//        zgloszenie.setDel(true);
-//        repo.save(zgloszenie);
-//        history.setzId(zgloszenie.getId());
-//        history.sethData(new Date());
-//        history.sethDescription("usunięto");
-//        history.sethUser("test");
-//        historyRepository.save(history);
-//        return "redirect:zgloszenia/lista";
-//    }
-//
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public String delZgloszenie(@ModelAttribute("zgloszenie") Zgloszenie zgloszenie, @ModelAttribute("history") History history) {
         zgloszenie.setDel(true);
-        repo.save(zgloszenie);
+        //repo.save(zgloszenie);
+        zgloszenieService.save(zgloszenie);
         history = new History();
         history.setzId(zgloszenie.getId());
         history.sethData(new Date());
         history.sethDescription("Usunięto z bazy");
         history.sethUser("usuwanie");
-        historyRepository.save(history);
+        //historyRepository.save(history);
+        historyService.save(history);
         return "redirect:zgloszenia/lista";
     }
 
