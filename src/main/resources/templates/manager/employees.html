@@ -29,9 +29,9 @@
                 <td th:text="${employee.email}"></td>
                 <td style="width:150px">
                     <!--                    <a th:href="@{/zgloszenia/history/(id=${zgloszenie.id})}" uk-icon="history" th:title="Historia"></a>-->
-                    <!--                    <a th:href="@{/zgloszenia/form/(id=${zgloszenie.id})}" uk-icon="pencil" th:title="Edycja"></a>-->
-                    <!--                    <a th:href="@{/zgloszenia/details/(id=${zgloszenie.id})}" uk-icon="info" th:title="Szczegóły"></a>-->
-                    <!--                    <a th:href="@{/zgloszenia/zamknij/(id=${zgloszenie.id})}" uk-icon="lock" th:title="Zakończ"></a>-->
+                                        <a th:href="@{/manager/edit_employee/(id=${employee.id})}" uk-icon="pencil" th:title="Edycja"></a>
+<!--                                        <a th:href="@{/zgloszenia/details/(id=${zgloszenie.id})}" uk-icon="info" th:title="Szczegóły"></a>-->
+<!--                                        <a th:href="@{/manager/zamknij/(id=${zgloszenie.id})}" uk-icon="lock" th:title="Zakończ"></a>-->
                     <!--                    <a></a>-->
                     <!--                    <a th:href="@{/manager/przydziel/(id=${zgloszenie.id})}" uk-icon="users" th:title="Przydziel"></a>-->
                     <!--                    <a th:href="@{/admin/usun/(id=${zgloszenie.id})}" uk-icon="warning" style="color: red" th:title="Usuń"></a>-->

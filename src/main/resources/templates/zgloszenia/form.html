@@ -18,13 +18,17 @@
             <input th:field="*{phone}" type="text" class="uk-input">
 
         </div>
-        <div class="uk-button uk-form-controls">
-            <label>Typ zgłoszenia</label>
-            <select th:field="*{type}" class="uk-input">
-                <option th:each="category : ${categories}"
-                        th:value="${category.name}"
-                        th:utext="${category.name}"/>
-            </select>
+<!--        <div class="uk-button uk-form-controls">-->
+<!--            <label>Typ zgłoszenia</label>-->
+<!--            <select th:field="*{type}" class="uk-input">-->
+<!--                <option th:each="category : ${categories}"-->
+<!--                        th:value="${category.name}"-->
+<!--                        th:utext="${category.name}"/>-->
+<!--            </select>-->
+<!--        </div>-->
+        <div class="uk-margin">
+        <label>Typ zgłoszenia</label>
+        <input th:field="*{type}" type="text" class="uk-input">
         </div>
         <div class="uk-margin">
             <label>Numer seryjny urządzenia</label>
@@ -35,7 +39,7 @@
             <textarea th:field="*{description}" class="uk-textarea" rows="5"></textarea>
         </div>
         <input th:field="*{id}" type="number" hidden>
-        <a th:href="@{/static}"><input class="uk-button uk-button-danger" type="button" value="Anuluj"></a>
+        <a th:href="@{/zgloszenia/lista}"><input class="uk-button uk-button-danger" type="button" value="Anuluj"></a>
         <input type="submit" class="uk-button uk-button-primary" value="Zapisz">
     </form>
 

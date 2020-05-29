@@ -1,7 +1,9 @@
 package pl.edu.wszib.pos.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
- import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,5 +55,14 @@ public class UserService {
         user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
         return userRepository.save(user);
     }
+
+//    @Bean
+//    public CommandLineRunner loadData(UserRepository user) {
+//        return (args ->  {
+//            user.save(new User("1","true","admin@jakis.mail","admin","admin","$2a$10$E5IdyCTDQkaZNRYeA205xOrU7dyp77mh3pDNRhhBOuaW1gBDo00mi","admin"));
+//            user.save(new User("2","true","manager@jakis.mail","manager","manager","$2a$10$kfSwgdgXhL5NNpM/2UivRO9cq37mTbcQrs4igAhvwoIoKumLg0Lp2","manager"));
+//            user.save(new User("3","true","user@jakis.mail","user","user","$2a$10$JLrNeTTsJBmKefynnjrypu6mCYfYVWupFheoScyGSZmsauP/5o7Ci","user1"));
+//        });
+//    }
 
 }

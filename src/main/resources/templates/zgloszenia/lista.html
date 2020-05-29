@@ -19,8 +19,8 @@
         <table class="uk-table uk-table-striped uk-table-hover">
             <tr>
                 <th><a class="uk-sortable" sd:pagination-sort="id">Id</a></th>
-                <th><a class="uk-sortable">Data zgłoszenia</a></th>
-                <th><a class="uk-sortable" sd:pagination-sort="description">Kategoria usterki</a></th>
+                <th><a class="uk-sortable" sd:pagination-sort="cData">Data zgłoszenia</a></th>
+                <th><a class="uk-sortable" sd:pagination-sort="type">Kategoria usterki</a></th>
                 <th><a class="uk-sortable" sd:pagination-sort="description">Opis usterki</a></th>
                 <th>Akcje</th>
             </tr>
@@ -29,44 +29,20 @@
                 <td th:text="${zgloszenie.cData}"></td>
                 <td th:text="${zgloszenie.type}"></td>
                 <td th:text="${zgloszenie.description}"></td>
-                <td style="width:150px">
-<!--                    <a th:href="@{/zgloszenia/history/(id=${zgloszenie.id})}" uk-icon="history" th:title="Historia"></a>-->
-<!--                    <a th:href="@{/zgloszenia/form/(id=${zgloszenie.id})}" uk-icon="pencil" th:title="Edycja"></a>-->
-<!--                    <a th:href="@{/zgloszenia/details/(id=${zgloszenie.id})}" uk-icon="info" th:title="Szczegóły"></a>-->
-<!--                    <a th:href="@{/zgloszenia/zamknij/(id=${zgloszenie.id})}" uk-icon="lock" th:title="Zakończ"></a>-->
-<!--                    <a></a>-->
-<!--                    <a th:href="@{/manager/przydziel/(id=${zgloszenie.id})}" uk-icon="users" th:title="Przydziel"></a>-->
-<!--                    <a th:href="@{/admin/usun/(id=${zgloszenie.id})}" uk-icon="warning" style="color: red" th:title="Usuń"></a>-->
-                    <div sec:authorize="isAuthenticated()">
+                <td style="width:200px">
+                    <div sec:authorize="isAuthenticated()" th:class="uk-inline">
                         <a th:href="@{/zgloszenia/history/(id=${zgloszenie.id})}" uk-icon="history" th:title="Historia"></a>
                         <a th:href="@{/zgloszenia/form/(id=${zgloszenie.id})}" uk-icon="pencil" th:title="Edycja"></a>
                         <a th:href="@{/zgloszenia/details/(id=${zgloszenie.id})}" uk-icon="info" th:title="Szczegóły"></a>
                         <a th:href="@{/zgloszenia/zamknij/(id=${zgloszenie.id})}" uk-icon="lock" th:title="Zakończ"></a>
                         <a></a>
-                        <a th:href="@{/manager/przydziel/(id=${zgloszenie.id})}" uk-icon="users" th:title="Przydziel"></a>
-                        <a th:href="@{/admin/usun/(id=${zgloszenie.id})}" uk-icon="warning" style="color: red" th:title="Usuń"></a>
                     </div>
-                    <div sec:authorize="hasRole('ADMIN')">
-                        <a th:href="@{/zgloszenia/history/(id=${zgloszenie.id})}" uk-icon="history" th:title="Historia"></a>
-                        <a th:href="@{/zgloszenia/form/(id=${zgloszenie.id})}" uk-icon="pencil" th:title="Edycja"></a>
-                        <a th:href="@{/zgloszenia/details/(id=${zgloszenie.id})}" uk-icon="info" th:title="Szczegóły"></a>
-                        <a th:href="@{/zgloszenia/zamknij/(id=${zgloszenie.id})}" uk-icon="lock" th:title="Zakończ"></a>
-                        <a></a>
+                    <div sec:authorize="hasAnyAuthority('MANAGER','ADMIN')" th:class="uk-inline">
                         <a th:href="@{/manager/przydziel/(id=${zgloszenie.id})}" uk-icon="users" th:title="Przydziel"></a>
-                        <a th:href="@{/admin/usun/(id=${zgloszenie.id})}" uk-icon="warning" style="color: red" th:title="Usuń"></a>
-                </div>
-                    <div sec:authorize="hasRole('MANAGER')">
-                        <a th:href="@{/zgloszenia/history/(id=${zgloszenie.id})}" uk-icon="history" th:title="Historia"></a>
-                        <a th:href="@{/zgloszenia/form/(id=${zgloszenie.id})}" uk-icon="pencil" th:title="Edycja"></a>
-                        <a th:href="@{/zgloszenia/details/(id=${zgloszenie.id})}" uk-icon="info" th:title="Szczegóły"></a>
-                        <a th:href="@{/zgloszenia/zamknij/(id=${zgloszenie.id})}" uk-icon="lock" th:title="Zakończ"></a>
-                        <a th:href="@{/manager/przydziel/(id=${zgloszenie.id})}" uk-icon="users" th:title="Przydziel"></a>
+<!--                        <a th:href="@{/admin/usun/(id=${zgloszenie.id})}" uk-icon="warning" style="color: red" th:title="Usuń">-->
                     </div>
-                    <div sec:authorize="hasRole('USER')">
-                        <a th:href="@{/zgloszenia/history/(id=${zgloszenie.id})}" uk-icon="history" th:title="Historia"></a>
-                        <a th:href="@{/zgloszenia/form/(id=${zgloszenie.id})}" uk-icon="pencil" th:title="Edycja"></a>
-                        <a th:href="@{/zgloszenia/details/(id=${zgloszenie.id})}" uk-icon="info" th:title="Szczegóły"></a>
-                        <a th:href="@{/zgloszenia/zamknij/(id=${zgloszenie.id})}" uk-icon="lock" th:title="Zakończ"></a>
+                    <div sec:authorize="hasAuthority('ADMIN')" th:class="uk-inline">
+                        <a th:href="@{/admin/usun/(id=${zgloszenie.id})}" uk-icon="warning" style="color: red" th:title="Usuń"></a>
                     </div>
 
                 </td>
