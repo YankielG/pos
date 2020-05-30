@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.util.Date;
@@ -21,6 +22,7 @@ public class Zgloszenie {
     //email zgłaszającego
     private String email;
     //telefon zgłaszającego
+    @Length(min = 9, max = 11, message = "Numer telefonu musi zawierać się pomiędzy 9 a 11 znakami")
     private String phone;
     //czego dotyczy zgłoszenie
     private String type;
@@ -185,6 +187,23 @@ public class Zgloszenie {
 //    }
 
     public Zgloszenie() {
+    }
+
+    public Zgloszenie(String name, String email, String phone, String type, String serialNumber, Date cData,
+                      String description, String endDescription, Boolean del, Boolean is_proceed, Boolean is_end, Boolean archive, List<History> histories) {
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.type = type;
+        this.serialNumber = serialNumber;
+        this.cData = cData;
+        this.description = description;
+        this.endDescription = endDescription;
+        this.del = del;
+        this.is_proceed = is_proceed;
+        this.is_end = is_end;
+        this.archive = archive;
+        this.histories = histories;
     }
 
 }

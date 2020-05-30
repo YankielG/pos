@@ -16,7 +16,7 @@
         </div>
         <div class="uk-margin">
             <label>Telefon zgłaszającego</label>
-            <input th:field="*{phone}" type="text" class="uk-input">
+            <input th:field="*{phone}" type="text" class="uk-input" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
 
         </div>
         <div class="uk-button uk-form-controls">

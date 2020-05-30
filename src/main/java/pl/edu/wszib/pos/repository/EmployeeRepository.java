@@ -15,4 +15,7 @@ import java.util.List;
 public interface EmployeeRepository extends PagingAndSortingRepository<Employee, Long>, CrudRepository<Employee, Long> {
     @Query("select  e from Employee e where e.is_active=true")
     public Page<Employee> findAllById(Long id, Pageable pageable);
+
+    public Employee findAllByName(String name);
+    public Employee findAllByEmail(String email);
 }

@@ -48,8 +48,7 @@ public class Employee {
         this.is_active = is_active;
     }
 
-    public Employee(Long id, String name, String email, boolean is_active) {
-        this.id = id;
+    public Employee(String name, String email, boolean is_active) {
         this.name = name;
         this.email = email;
         this.is_active = is_active;
